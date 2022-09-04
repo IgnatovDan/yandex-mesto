@@ -1,7 +1,6 @@
 .page {
   background-color: #000000;
-  max-width: 320px;
+  max-width: 320px; /* TODO: change to min-width */
   margin: 0 auto;
-  /* TODO: include inter font */
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif; /* TODO: change to Inter font */
 }

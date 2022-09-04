@@ -1,7 +1,13 @@
 .profile__details {
   max-width: 282px;
   padding-top: 26px;
+  margin: 0;
+  padding: 0;
 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;

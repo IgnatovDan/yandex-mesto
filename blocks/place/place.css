@@ -1,0 +1,9 @@
+.place {
+  width: 282px;
+
+  background: #FFFFFF;
+  border-radius: 10px;
+  
+  /*hide child content that overflows 'radius: 10px'*/
+  overflow: hidden;
+}
