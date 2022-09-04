@@ -1,0 +1,9 @@
+.profile__name-edit-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline; /* align text and edit icon */
+  column-gap: 10px;
+
+  transform: translateX(14px); /* exclude button width and gap to keep text at root element center */
+}
