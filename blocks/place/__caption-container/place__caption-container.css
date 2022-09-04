@@ -1,8 +1,9 @@
 .place__caption-container {
+  padding: 22px 20px 24px 21px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
   column-gap: 10px;
-  padding: 22px 20px 24px 20px;
 }
