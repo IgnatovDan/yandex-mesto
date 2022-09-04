@@ -1,4 +1,7 @@
 .profile__name {
+  padding-top: 26px;
+  max-width: 189px;
+
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
@@ -6,6 +9,5 @@
   line-height: 33px;
   text-align: center;
 
-  max-width: 189px;
   color: #FFFFFF;
 }
