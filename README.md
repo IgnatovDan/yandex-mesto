@@ -1,5 +1,12 @@
-# Проект: Место
+# Проект: MeCTO
 
+This site shows several places with photos and descriptions and it shows author's photo/name and allows to change his name.
+Project is optimized for viewing on desktop (>700) and on mobile (<700).
+
+###
+Used technologies: HTML, CSS, JS, BEM
+
+<!-- 
 ### Обзор
 
 * Figma
@@ -14,4 +21,4 @@
 Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
 Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
 
-Удачи!
+Удачи! -->
