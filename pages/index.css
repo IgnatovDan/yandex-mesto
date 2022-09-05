@@ -1,10 +1,12 @@
 @import url(../vendor/normalize.css); /* from https://github.com/necolas/normalize.css/ */
 @import url(../vendor/fonts/inter.css);
 
+@import url(../blocks/page/page.css);
+
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
 
-@import url(../blocks/page/page.css);
+@import url(../blocks/main/main.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
