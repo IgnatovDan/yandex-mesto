@@ -2,5 +2,6 @@
   flex-grow: 1;
   padding: 0 19px;
   margin: 0 auto;
-  max-width: 880px; /* for content-box: 880 doesn't include 19px paddings */
+  max-width: calc(880px + 19px + 19px);
+  box-sizing: border-box;
 }
