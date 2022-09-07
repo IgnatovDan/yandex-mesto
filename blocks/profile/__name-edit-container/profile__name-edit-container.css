@@ -9,3 +9,10 @@
 
   transform: translateX(14px); /* exclude button width and gap to keep text at root element center */
 }
+
+@media screen and (min-width: 1024px) {
+  .profile__name-edit-container {
+    padding: 0;
+    transform: none;
+  }
+}
