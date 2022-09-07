@@ -4,15 +4,23 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: baseline; /* align text and edit icon */
   column-gap: 10px;
 
-  transform: translateX(14px); /* exclude button width and gap to keep text at root element center */
+
+  /* align text and edit icon */
+  align-items: baseline;
+
+  /* exclude button width and gap to keep text at root element center */
+  transform: translateX(14px);
 }
 
 @media screen and (min-width: 1024px) {
   .profile__name-edit-container {
-    padding: 0;
+    grid-area: name-edit;
+
+    /* required to show '...' */
+    overflow: hidden;
+
     transform: none;
   }
 }

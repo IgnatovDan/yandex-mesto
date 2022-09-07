@@ -19,6 +19,9 @@
 
 @media screen and (min-width: 1024px) {
   .profile__details {
+    grid-area: details;
+
     padding: 0;
+    max-width: none;
   }
 }

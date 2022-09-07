@@ -5,7 +5,7 @@ Photos from https://unsplash.com/
 Project is optimized for viewing on desktop (>700) and on mobile (<700).
 
 ###
-Used technologies: HTML, CSS, JS, BEM, Responsive design
+Used technologies: HTML, CSS-flex, CSS-grid, JS, BEM, Responsive design
 
 <!-- 
 ### Обзор

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   padding-top: 41px;
   padding-bottom: 36px;
 }
@@ -10,7 +10,13 @@
 
 @media screen and (min-width: 1024px) {
   .profile {
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: min-content 1fr min-content;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    column-gap: 30px;
+    grid-template-areas:
+      "photo name-edit add"
+      "photo details add";
   }
 }
