@@ -15,6 +15,13 @@
   padding: 0;
 
   border: 1px solid #FFFFFF;
+
+  transition: opacity .3s ease-out;
+}
+
+.profile__edit:hover {
+  opacity: 60%;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 1024px) {
