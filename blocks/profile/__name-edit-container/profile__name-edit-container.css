@@ -5,6 +5,9 @@
   grid-area: name-edit;
   justify-self: stretch;
 
+  /* sync h-center with figma: "center text only, then add button" */
+  transform: translateX(calc((var(--edit-width) + var(--name-edit-indent)) / 2));
+
   /* required for '...' in child name element */
   overflow: hidden;
 
@@ -18,21 +21,14 @@
   flex-wrap: nowrap;
   column-gap: var(--name-edit-indent);
 
-  /* align text and edit icon */
+  /* sync v-align with figma: text and edit icon by baseline */
   align-items: baseline;
-
-  /* 'calc(button-width + gap) / 2' to h-center text without button */
-  transform: translateX(calc((var(--edit-width) + var(--name-edit-indent)) / 2));
 }
 
 @media screen and (min-width: 1024px) {
   .profile__name-edit-container {
-    /* grid-area: name-edit; */
-    justify-self: stretch;
-
-    /* required to show '...' */
-    overflow: hidden;
-
+    align-self: flex-end;
+    padding: 0;
     transform: none;
   }
 }

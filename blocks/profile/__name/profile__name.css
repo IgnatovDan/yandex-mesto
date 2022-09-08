@@ -15,8 +15,3 @@
 
   color: #FFFFFF;
 }
-
-@media screen and (min-width: 1024px) {
-  .profile__name {
-  }
-}
