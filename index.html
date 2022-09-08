@@ -20,8 +20,10 @@
       <img class="profile__photo" src="./images/custo.jpg">
       <div class="profile__name-edit-container">
         <!--
-          Container is required to sync 'name'/'edit' V-align with figma
-          I will use flex: https://codepen.io/DanIgnatov/pen/LYmGVpj - cannot make V-align with css-grid
+          Container is required to 
+          1. sync 'name'/'edit' V-align with figma (https://codepen.io/DanIgnatov/pen/LYmGVpj - cannot make V-align with css-grid)
+          2. place 'edit' right after name text (cannot setup "ellipsis + center + width-by-content" using css-grid)
+          I will use "flex + container"
         -->
         <p class="profile__name">
           Жак-Ив Кусто

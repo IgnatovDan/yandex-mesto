@@ -24,5 +24,9 @@
   .profile__details {
     text-align: left;
     padding: 0;
+    align-self: flex-start;
+
+    font-size: 18px;
+    line-height: 22px;
   }
 }

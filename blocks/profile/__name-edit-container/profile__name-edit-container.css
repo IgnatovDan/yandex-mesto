@@ -30,5 +30,7 @@
     align-self: flex-end;
     padding: 0;
     transform: none;
+
+    justify-content: flex-start;
   }
 }

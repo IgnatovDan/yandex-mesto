@@ -16,12 +16,13 @@
 @media screen and (min-width: 1024px) {
   .profile {
     grid-template-columns: min-content 1fr min-content;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: auto auto;
     grid-template-areas:
       "photo name-edit add"
       "photo details add";
 
     align-items: center;
     column-gap: 30px;
+    row-gap: 8px;
   }
 }
