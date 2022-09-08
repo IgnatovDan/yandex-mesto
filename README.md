@@ -7,6 +7,14 @@ Project is optimized for viewing on desktop (>700) and on mobile (<700).
 ###
 Used technologies: HTML, CSS-flex, CSS-grid, JS, BEM, Responsive design
 
+###
+
+Links:
+
+- [На 100% правильный способ делать контрольные точки в CSS](https://css-live.ru/articles-css/pravilnye-kontrolnye-tochki-v-css.html)
+- [A Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
+- [Desktop, Mobile & Tablet Screen Resolution Stats Worldwide, Jan - Sept 2022](https://gs.statcounter.com/screen-resolution-stats/desktop-mobile-tablet/worldwide/#monthly-202201-202209-bar)
+
 <!-- 
 ### Обзор
 
