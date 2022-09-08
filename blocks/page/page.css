@@ -1,4 +1,6 @@
 .page {
+  --root-side-padding: 19px;
+
   min-width: 320px;
   min-height: 100vh;
   /*

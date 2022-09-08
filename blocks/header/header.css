@@ -1,10 +1,17 @@
 .header {
-  height: 84px;
   margin: 0 auto;
 
-  padding: 28px 0 0 27px;
-  max-width: calc(880px + 27px);
+  padding: 28px 0 30px 27px;
+  max-width: calc(880px + 2 * var(--root-side-padding));
   box-sizing: border-box;
 
   border-bottom: 1px solid rgb(84, 84, 84, 0.7);
+}
+
+@media screen and (min-width: 1024px) {
+  .header {
+    width: 880px;
+
+    padding-top: 45px 0 38px 0;
+  }
 }
