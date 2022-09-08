@@ -16,3 +16,9 @@
 
   border: 1px solid #FFFFFF;
 }
+
+@media screen and (min-width: 1024px) {
+  .profile__edit {
+    background-size: 10px;
+  }
+}

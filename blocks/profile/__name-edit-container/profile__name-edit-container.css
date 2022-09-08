@@ -27,6 +27,9 @@
 
 @media screen and (min-width: 1024px) {
   .profile__name-edit-container {
+    --edit-width: 24px;
+    --name-edit-indent: 18px;
+
     align-self: flex-end;
     padding: 0;
     transform: none;
