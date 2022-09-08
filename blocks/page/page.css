@@ -3,12 +3,7 @@
 
   min-width: 320px;
   min-height: 100vh;
-  /*
-  Don't use `flex`, use `margin: 0 auto;` instead to use `grid-template-columns: repeat(auto-fill, 282px)`
 
-  display: flex;
-  flex-direction: column;
-  */
 
   background-color: #000000;
 
