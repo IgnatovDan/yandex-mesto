@@ -1,11 +1,14 @@
 .profile__name-edit-container {
+  grid-area: name-edit;
+  /* TODO: use 'stretch' ? */
+  justify-self: center;
+
   padding: 26px 0 0;
 
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   column-gap: 10px;
-
 
   /* align text and edit icon */
   align-items: baseline;
@@ -16,7 +19,8 @@
 
 @media screen and (min-width: 1024px) {
   .profile__name-edit-container {
-    grid-area: name-edit;
+    /* grid-area: name-edit; */
+    justify-self: stretch;
 
     /* required to show '...' */
     overflow: hidden;

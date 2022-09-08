@@ -1,4 +1,7 @@
 .profile__add {
+  grid-area: add;
+  justify-self: center;
+
   margin-top: 33px;
 
   width: 282px;
@@ -17,7 +20,7 @@
 
 @media screen and (min-width: 1024px) {
   .profile__add {
-    grid-area: add;
+    /* grid-area: add; */
 
     margin-top: 0;
     width: 150px;

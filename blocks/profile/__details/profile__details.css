@@ -1,5 +1,8 @@
 .profile__details {
-  max-width: 282px;
+  grid-area: details;
+  justify-self: stretch;
+
+  /* max-width: 282px; */
   margin: 0;
   padding: 8px 0 0;
 
@@ -19,9 +22,9 @@
 
 @media screen and (min-width: 1024px) {
   .profile__details {
-    grid-area: details;
+    /* grid-area: details; */
 
     padding: 0;
-    max-width: none;
+    /* max-width: none; */
   }
 }

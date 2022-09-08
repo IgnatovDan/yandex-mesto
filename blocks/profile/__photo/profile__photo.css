@@ -1,13 +1,14 @@
 .profile__photo {
+  grid-area: photo;
+  justify-self: center;
+
   width: 120px;
   height: 120px;
   border-radius: 50%;
-
-  grid-area: photo;
 }
 
-@media screen and (min-width: 1024px) {
+/* @media screen and (min-width: 1024px) {
   .profile__photo {
     grid-area: photo;
   }
-}
+} */

@@ -1,7 +1,12 @@
 .profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content min-content min-content min-content;
+  grid-template-areas:
+    "photo"
+    "name-edit"
+    "details"
+    "add";
 
   padding-top: 41px;
   padding-bottom: 36px;
@@ -10,13 +15,14 @@
 
 @media screen and (min-width: 1024px) {
   .profile {
-    display: grid;
+    /* display: grid; */
     grid-template-columns: min-content 1fr min-content;
     grid-template-rows: 1fr 1fr;
-    align-items: center;
-    column-gap: 30px;
     grid-template-areas:
       "photo name-edit add"
       "photo details add";
+
+    align-items: center;
+    column-gap: 30px;
   }
 }
