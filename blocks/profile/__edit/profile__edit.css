@@ -1,10 +1,10 @@
 .profile__edit {
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: 18px;
+  flex-basis: var(--edit-width);
 
-  width: 18px;
-  height: 18px;
+  width: var(--edit-width);
+  height: var(--edit-width);
   box-sizing: border-box;
 
   background-image: url(../../../images/edit.svg);

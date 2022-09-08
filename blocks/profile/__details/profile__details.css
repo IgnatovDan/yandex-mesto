@@ -24,6 +24,8 @@
   .profile__details {
     /* grid-area: details; */
 
+    text-align: left;
+    
     padding: 0;
     /* max-width: none; */
   }

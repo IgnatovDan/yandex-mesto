@@ -1,20 +1,28 @@
 .profile__name-edit-container {
-  grid-area: name-edit;
-  /* TODO: use 'stretch' ? */
-  justify-self: center;
+  --edit-width: 18px;
+  --name-edit-indent: 10px;
 
-  padding: 26px 0 0;
+  grid-area: name-edit;
+  justify-self: stretch;
+
+  /* required for '...' in child name element */
+  overflow: hidden;
+
+  padding-top: 26px;
+  padding-left: calc((var(--edit-width) + var(--name-edit-indent)) / 2);
+  padding-right: calc((var(--edit-width) + var(--name-edit-indent)) / 2);
 
   display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: nowrap;
-  column-gap: 10px;
+  column-gap: var(--name-edit-indent);
 
   /* align text and edit icon */
   align-items: baseline;
 
-  /* exclude button width and gap to keep text at root element center */
-  transform: translateX(14px);
+  /* 'calc(button-width + gap) / 2' to h-center text without button */
+  transform: translateX(calc((var(--edit-width) + var(--name-edit-indent)) / 2));
 }
 
 @media screen and (min-width: 1024px) {
