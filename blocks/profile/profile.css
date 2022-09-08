@@ -24,5 +24,7 @@
     align-items: center;
     column-gap: 30px;
     row-gap: 8px;
+
+    padding-bottom: 51px;
   }
 }
