@@ -1,0 +1,10 @@
+.edit-profile-form {
+  min-width: 358px;
+
+  display: flex;
+  flex-direction: column;
+  padding: 34px 36px 37px;
+
+  border-radius: 10px;
+  background: #FFFFFF;
+}

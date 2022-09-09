@@ -1,0 +1,21 @@
+.edit-profile-form__input {
+  border: none;
+  box-sizing: border-box;
+  height: 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #000000;
+
+  transition: border-bottom-color 0.3s ease-in-out;
+}
+
+.edit-profile-form__input:focus {
+  outline: none;
+  border-bottom-color: rgba(0, 0, 0, 1);
+}

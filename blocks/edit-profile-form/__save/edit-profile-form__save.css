@@ -1,0 +1,24 @@
+.edit-profile-form__save {
+  margin-top: 48px;
+  min-height: 50px;
+
+  border-radius: 2px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+
+  color: #FFFFFF;
+  background: #000000;
+
+  transition: opacity .3s ease-out;
+}
+
+.edit-profile-form__save:hover {
+   /* TODO: add 'button' block for all buttons */
+  opacity: 80%;
+  cursor: pointer;
+}
