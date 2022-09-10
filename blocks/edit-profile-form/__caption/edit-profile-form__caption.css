@@ -1,12 +1,21 @@
 .edit-profile-form__caption {
   margin: 0;
-  padding: 0 0 42px;
+  padding: 0 0 69px;
 
   font-family: 'Inter';
   font-style: normal;
   font-weight: 900;
-  font-size: 24px;
-  line-height: 29px;
+  font-size: 18px;
+  line-height: 22px;
 
   color: #000000;
+}
+
+@media screen and (min-width: 1024px) {
+  .edit-profile-form__caption {
+    padding-top: 42px;
+
+    font-size: 24px;
+    line-height: 29px;
+  }
 }

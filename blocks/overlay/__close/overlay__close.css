@@ -1,10 +1,12 @@
 .overlay__close {
-  position: absolute;
-  left: calc(100% + 8px);
-  bottom: calc(100% + 8px);
+  --close-indent: 16px;
 
-  width: 32px;
-  height: 32px;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--close-indent));
+
+  width: 20px;
+  height: 20px;
   box-sizing: border-box;
 
   padding: 0;
@@ -14,6 +16,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;
+  background-size: cover;
 
   transition: opacity .3s ease-out;
 }
@@ -21,4 +24,16 @@
 .overlay__close:hover {
   opacity: 60%;
   cursor: pointer;
+}
+
+@media screen and (min-width: 1024px) {
+  .overlay__close {
+    --close-indent: 8px;
+
+    left: calc(100% + 8px);
+    bottom: calc(100% + 8px);
+
+    width: 32px;
+    height: 32px;
+  }
 }

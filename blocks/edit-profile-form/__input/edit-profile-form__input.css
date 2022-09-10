@@ -3,6 +3,11 @@
   box-sizing: border-box;
   height: 32px;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding: 0 0 4px;
+
+  /* padding-bottom: 5px;
+  padding-left: 0;
+  padding-right: 0; */
 
   font-family: 'Inter';
   font-style: normal;
@@ -18,4 +23,10 @@
 .edit-profile-form__input:focus {
   outline: none;
   border-bottom-color: rgba(0, 0, 0, 1);
+}
+
+@media screen and (min-width: 1024px) {
+  .edit-profile-form__input {
+    padding: initial;
+  }
 }

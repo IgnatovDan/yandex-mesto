@@ -1,14 +1,16 @@
 .edit-profile-form__save {
-  margin-top: 48px;
-  min-height: 50px;
+  padding: 0;
+  margin-top: 45px;
+  min-height: 46px;
 
   border-radius: 2px;
+  border: none;
 
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 17px;
   text-align: center;
 
   color: #FFFFFF;
@@ -18,7 +20,17 @@
 }
 
 .edit-profile-form__save:hover {
-   /* TODO: add 'button' block for all buttons */
+  /* TODO: add 'button' block for all buttons */
   opacity: 80%;
   cursor: pointer;
+}
+
+@media screen and (min-width: 1024px) {
+  .edit-profile-form__save {
+    margin-top: 48px;
+    min-height: 50px;
+
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
