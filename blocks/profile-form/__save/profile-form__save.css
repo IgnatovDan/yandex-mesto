@@ -1,4 +1,4 @@
-.edit-profile-form__save {
+.profile-form__save {
   padding: 0;
   margin-top: 45px;
   min-height: 46px;
@@ -19,14 +19,14 @@
   transition: opacity .3s ease-out;
 }
 
-.edit-profile-form__save:hover {
+.profile-form__save:hover {
   /* TODO: add 'button' block for all buttons */
   opacity: 80%;
   cursor: pointer;
 }
 
 @media screen and (min-width: 1024px) {
-  .edit-profile-form__save {
+  .profile-form__save {
     margin-top: 48px;
     min-height: 50px;
 

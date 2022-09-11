@@ -1,4 +1,4 @@
-.edit-profile-form__caption {
+.profile-form__caption {
   margin: 0;
   padding: 0 0 69px;
 
@@ -12,7 +12,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .edit-profile-form__caption {
+  .profile-form__caption {
     padding-top: 42px;
 
     font-size: 24px;

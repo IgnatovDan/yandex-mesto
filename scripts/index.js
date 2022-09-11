@@ -1,25 +1,53 @@
-// TODO: add JS code
+let profileNameEl = document.querySelector('.profile__name');
+let profileDetailsEl = document.querySelector('.profile__details');
+let profileEditEl = document.querySelector('.profile__edit');
 
-// // Находим форму в DOM
-// let formElement = // Воспользуйтесь методом querySelector()
-// // Находим поля формы в DOM
-// let nameInput = // Воспользуйтесь инструментом .querySelector()
-// let jobInput = // Воспользуйтесь инструментом .querySelector()
+let overlayEl = document.querySelector('.overlay');
+let overlayCloseEl = overlayEl.querySelector('.overlay__close');
 
-// // Обработчик «отправки» формы, хотя пока
-// // она никуда отправляться не будет
-// function formSubmitHandler (evt) {
-//     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-//                                                 // Так мы можем определить свою логику отправки.
-//                                                 // О том, как это делать, расскажем позже.
+// Находим форму в DOM
+let profileFormEl = document.querySelector('.profile-form'); // Воспользуйтесь методом querySelector()
 
-//     // Получите значение полей jobInput и nameInput из свойства value
+// Находим поля формы в DOM
+let profileFormNameInput = profileFormEl.querySelector('.profile-form__input_name'); // Воспользуйтесь инструментом .querySelector()
+let profileFormDetailsInput = profileFormEl.querySelector('.profile-form__input_details'); // Воспользуйтесь инструментом .querySelector()
 
-//     // Выберите элементы, куда должны быть вставлены значения полей
+function hideOverlay() {
+  overlayEl.classList.add('overlay_hidden');
+}
 
-//     // Вставьте новые значения с помощью textContent
-// }
+function showOverlay() {
+  overlayEl.classList.remove('overlay_hidden');
+}
 
-// // Прикрепляем обработчик к форме:
-// // он будет следить за событием “submit” - «отправка»
-// formElement.addEventListener('submit', formSubmitHandler); 
+function showProfileEditForm() {
+  profileFormNameInput.value = profileNameEl.textContent;
+  profileFormDetailsInput.value = profileDetailsEl.textContent;
+  showOverlay();
+}
+
+function hideProfileEditForm({ saveChanges }) {
+  if (saveChanges) {
+    profileNameEl.textContent = profileFormNameInput.value;
+    profileDetailsEl.textContent = profileFormDetailsInput.value;
+  }
+  profileFormNameInput.value = '';
+  profileFormDetailsInput.value = '';
+  hideOverlay();
+}
+
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+function profileEditFormSubmitHandler(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  // Так мы можем определить свою логику отправки.
+  // О том, как это делать, расскажем позже.
+
+  hideProfileEditForm({ saveChanges: true });
+}
+
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+profileFormEl.addEventListener('submit', profileEditFormSubmitHandler);
+overlayCloseEl.addEventListener('click', hideProfileEditForm);
+profileEditEl.addEventListener('click', showProfileEditForm);

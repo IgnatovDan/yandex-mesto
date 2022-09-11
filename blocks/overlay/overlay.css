@@ -1,7 +1,6 @@
 .overlay {
-  /* display: none; */
   position: fixed;
-  /* 9999 ? */
+  /* 0? 9999 ? */
   z-index: 1;
   left: 0;
   top: 0;

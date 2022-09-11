@@ -29,11 +29,12 @@
 @import url(../blocks/place/__caption/place__caption.css);
 
 @import url(../blocks/overlay/overlay.css);
+@import url(../blocks/overlay/_hidden/overlay_hidden.css);
 @import url(../blocks/overlay/__content/overlay__content.css);
 @import url(../blocks/overlay/__close/overlay__close.css);
 
-@import url(../blocks/edit-profile-form/edit-profile-form.css);
-@import url(../blocks/edit-profile-form/__caption/edit-profile-form__caption.css);
-@import url(../blocks/edit-profile-form/__input/edit-profile-form__input.css);
-@import url(../blocks/edit-profile-form/__field-set/edit-profile-form__field-set.css);
-@import url(../blocks/edit-profile-form/__save/edit-profile-form__save.css);
+@import url(../blocks/profile-form/profile-form.css);
+@import url(../blocks/profile-form/__caption/profile-form__caption.css);
+@import url(../blocks/profile-form/__input/profile-form__input.css);
+@import url(../blocks/profile-form/__field-set/profile-form__field-set.css);
+@import url(../blocks/profile-form/__save/profile-form__save.css);

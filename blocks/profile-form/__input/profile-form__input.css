@@ -1,4 +1,4 @@
-.edit-profile-form__input {
+.profile-form__input {
   border: none;
   box-sizing: border-box;
   height: 32px;
@@ -20,13 +20,13 @@
   transition: border-bottom-color 0.3s ease-in-out;
 }
 
-.edit-profile-form__input:focus {
+.profile-form__input:focus {
   outline: none;
   border-bottom-color: rgba(0, 0, 0, 1);
 }
 
 @media screen and (min-width: 1024px) {
-  .edit-profile-form__input {
+  .profile-form__input {
     padding: initial;
   }
 }
