@@ -5,8 +5,12 @@
   object-fit: cover;
 
   /*
-  instead, use 'overflow: hidden' for the parent element 
+  I can use these settings:
+  
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  
+  But anyway I will round up corners in the parent element and use 'overflow: hidden' to hide any child area beside the round radius.
+  This approach allows to don't care about corners in this element.
   */
 }
