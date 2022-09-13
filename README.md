@@ -14,6 +14,8 @@ Links:
 - [На 100% правильный способ делать контрольные точки в CSS](https://css-live.ru/articles-css/pravilnye-kontrolnye-tochki-v-css.html)
 - [A Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
 - [Desktop, Mobile & Tablet Screen Resolution Stats Worldwide, Jan - Sept 2022](https://gs.statcounter.com/screen-resolution-stats/desktop-mobile-tablet/worldwide/#monthly-202201-202209-bar)
+- [The Best Font Loading Strategies and How to Execute Them](https://css-tricks.com/the-best-font-loading-strategies-and-how-to-execute-them/)
+- [Как отличить контентное изображение от декоративного](https://htmlacademy.ru/blog/html/content-or-decor-img)
 
 <!-- 
 ### Обзор
