@@ -1,5 +1,7 @@
 .footer {
+  flex-grow: 0;
   margin: 0 auto;
+  width: 100%;
 
   padding: 48px 19px 36px;
   max-width: calc(880px + 19px + 19px);

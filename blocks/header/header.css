@@ -1,5 +1,7 @@
 .header {
+  flex-grow: 0;
   margin: 0 auto;
+  width: 100%;
 
   padding: 28px 0 30px 27px;
   max-width: calc(880px + 2 * var(--root-side-padding));
