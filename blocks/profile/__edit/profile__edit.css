@@ -8,6 +8,7 @@
   box-sizing: border-box;
 
   background-image: url(../../../images/edit.svg);
+  background-size: 7.5px;
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;

@@ -16,7 +16,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;
-  background-size: cover;
+  background-size: 20px;
 
   transition: opacity .3s ease-out;
 }
@@ -35,5 +35,7 @@
 
     width: 32px;
     height: 32px;
+    
+    background-size: 32px;
   }
 }

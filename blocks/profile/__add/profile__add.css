@@ -9,6 +9,7 @@
   box-sizing: border-box;
 
   background-image: url(../../../images/add.svg);
+  background-size: 16px;
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;
