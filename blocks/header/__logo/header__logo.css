@@ -2,6 +2,7 @@
   display: block;
   width: 104px;
   height: 25px;
+  object-fit: contain;
 }
 
 @media screen and (min-width: 1024px) {
