@@ -1,5 +1,12 @@
 .place {
+  /*
+  already specified in grid.column.width
   width: 282px;
+  */
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 
   background: #FFFFFF;
   border-radius: 10px;
