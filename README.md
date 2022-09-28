@@ -7,6 +7,8 @@ Also, you will see photo/name/details of the page owner and can change them (cli
 
 The page is optimized for viewing on desktop (>1024) and on mobile (<1024) devices: layout changes depending on the width of your device/browser.
 
+Figma: https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1
+
 Note: the 'add' and 'like' buttons are not finished yet.
 
 ---
