@@ -13,7 +13,7 @@ Note: the 'add' and 'like' buttons are not finished yet.
 
 ---
 ### Used technologies
-HTML, CSS-flex, CSS-grid, JS, BEM, Responsive design
+HTML, CSS-flex, CSS-grid, JS, BEM, Responsive design, Figma
 
 ---
 ### Links:
