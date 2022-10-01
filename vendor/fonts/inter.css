@@ -6,19 +6,21 @@
   src:
     /* local("Inter Black"), */
     url("./Inter-Black.woff2") format("woff2"),
-    url("/Inter-Black.woff") format("woff");
+    url("./Inter-Black.woff") format("woff");
 }
 
 @font-face {
   font-family: "Inter";
   font-weight: 500;
-  src: url("./Inter-Medium.woff2") format("woff2"),
-    url("/Inter-Medium.woff") format("woff");
+  src:
+    url("./Inter-Medium.woff2") format("woff2"),
+    url("./Inter-Medium.woff") format("woff");
 }
 
 @font-face {
   font-family: "Inter";
   font-weight: 400;
-  src: url("./Inter-Regular.woff2") format("woff2"),
-    url("/Inter-Regular.woff") format("woff");
+  src:
+    url("./Inter-Regular.woff2") format("woff2"),
+    url("./Inter-Regular.woff") format("woff");
 }
