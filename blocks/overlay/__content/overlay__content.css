@@ -2,7 +2,6 @@
   --v-scrollbar-width: 16px;
 
   position: relative;
-  max-width: calc(100vw - 32px - 8px);
   max-width: calc(100vw - 2 * var(--v-scrollbar-width));
   max-height: 100vh;
 

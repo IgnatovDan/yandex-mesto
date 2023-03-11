@@ -25,10 +25,10 @@
           2. place 'edit' right after name text (cannot setup "ellipsis + center + width-by-content" using css-grid)
           I will use "flex + container"
         -->
-        <p class="profile__name">
+        <h1 class="profile__name">
           Жак-Ив Кусто
-        </p>
-        <button class="profile__edit">
+        </h1>
+        <button type="button" class="profile__edit">
         </button>
       </div>
 
@@ -37,7 +37,7 @@
         Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана 
       </p>
 
-      <button class="profile__add"></button>
+      <button type="button" class="profile__add"></button>
     </section>
     <section>
       <ul class="places-list">
@@ -46,7 +46,7 @@
             <img class="place__image" src="./images/place1.jpg" alt="Карачаевск">
             <div class="place__caption-container">
               <h2 class="place__caption">Карачаевск</h2>
-              <button class="place__like"></button>
+              <button type="button" class="place__like"></button>
             </div>
           </article>
         </li>
@@ -55,7 +55,7 @@
             <img class="place__image" src="./images/place2.jpg" alt="Эльбрус">
             <div class="place__caption-container">
               <h2 class="place__caption">Гора Эльбрус</h2>
-              <button class="place__like place__like_active"></button>
+              <button type="button" class="place__like place__like_active"></button>
             </div>
           </article>
         </li>
@@ -64,7 +64,7 @@
             <img class="place__image" src="./images/place3.jpg" alt="Домбай">
             <div class="place__caption-container">
               <h2 class="place__caption">Домбай</h2>
-              <button class="place__like"></button>
+              <button type="button" class="place__like"></button>
             </div>
           </article>
         </li>
@@ -73,7 +73,7 @@
             <img class="place__image" src="./images/place4.jpg" alt="Eiffel tower">
             <div class="place__caption-container">
               <h2 class="place__caption">Eiffel tower</h2>
-              <button class="place__like"></button>
+              <button type="button" class="place__like"></button>
             </div>
           </article>
         </li>
@@ -82,7 +82,7 @@
             <img class="place__image" src="./images/place5.jpg" alt="gates">
             <div class="place__caption-container">
               <h2 class="place__caption">10000 gates</h2>
-              <button class="place__like"></button>
+              <button type="button" class="place__like"></button>
             </div>
           </article>
         </li>
@@ -91,7 +91,7 @@
             <img class="place__image" src="./images/place6.jpg" alt="Books">
             <div class="place__caption-container">
               <h2 class="place__caption">Books on brown wooden shelves</h2>
-              <button class="place__like"></button>
+              <button type="button" class="place__like"></button>
             </div>
           </article>
         </li>
@@ -109,12 +109,12 @@
       <form class="profile-form" name="profile-form">
         <h2 class="profile-form__caption">Редактировать профиль</h2>
         <fieldset class="profile-form__field-set">
-          <input class="profile-form__input profile-form__input_name" aria-label="имя" placeholder="имя">
-          <input class="profile-form__input profile-form__input_details" aria-label="детали" placeholder="детали">
+          <input class="profile-form__input profile-form__input_name" type="text" aria-label="имя" placeholder="имя">
+          <input class="profile-form__input profile-form__input_details" type="text" aria-label="детали" placeholder="детали">
         </fieldset>
-        <button class="profile-form__save">Сохранить</button>
+        <button type="submit" class="profile-form__save">Сохранить</button>
       </form>
-      <button class="overlay__close" aria-label="close"></button>
+      <button type="button" class="overlay__close" aria-label="close"></button>
     </div>
   </div>
   <script src="./scripts/index.js"></script>
