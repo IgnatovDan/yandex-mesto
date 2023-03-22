@@ -27,14 +27,27 @@
 @import url(../blocks/place/__like/place__like.css);
 @import url(../blocks/place/__like/_active/place__like_active.css);
 @import url(../blocks/place/__caption/place__caption.css);
+@import url(../blocks/place/__delete/place__delete.css);
 
-@import url(../blocks/overlay/overlay.css);
-@import url(../blocks/overlay/_hidden/overlay_hidden.css);
-@import url(../blocks/overlay/__content/overlay__content.css);
-@import url(../blocks/overlay/__close/overlay__close.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/_dark-background/popup_dark-background.css);
+@import url(../blocks/popup/_page-is-loading/popup_page-is-loading.css);
+@import url(../blocks/popup/__content/popup__content.css);
+@import url(../blocks/popup/__close/popup__close.css);
 
 @import url(../blocks/profile-form/profile-form.css);
 @import url(../blocks/profile-form/__caption/profile-form__caption.css);
 @import url(../blocks/profile-form/__input/profile-form__input.css);
 @import url(../blocks/profile-form/__field-set/profile-form__field-set.css);
 @import url(../blocks/profile-form/__save/profile-form__save.css);
+
+@import url(../blocks/form/form.css);
+@import url(../blocks/form/__caption/form__caption.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__field-set/form__field-set.css);
+@import url(../blocks/form/__save/form__save.css);
+
+@import url(../blocks/view-place/view-place.css);
+@import url(../blocks/view-place/__caption/view-place__caption.css);
+@import url(../blocks/view-place/__image/view-place__image.css);
