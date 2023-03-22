@@ -3,7 +3,7 @@
 https://ignatovdan.github.io/yandex-mesto/ - you can take a look at the project right now!
 
 There are several places with photos and descriptions and photo/name/details of the page owner.
-Also, there are edit forms to change values.
+Also, there are edit forms to change these values.
 
 The page is optimized for viewing on desktop (>1024) and on mobile (<1024) devices: layout changes depending on the width of your device/browser.
 
