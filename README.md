@@ -30,6 +30,7 @@ HTML, CSS-flex, CSS-grid, JS, BEM, Responsive design, Figma
   - https://github.com/IgnatovDan/Sandbox/tree/main/CSS/fonts
   - https://github.com/IgnatovDan/Sandbox/tree/main/CSS/grid
   - https://github.com/IgnatovDan/Sandbox/tree/main/CSS/media
+  - https://github.com/IgnatovDan/Sandbox/tree/main/CSS/popup
 - Tools
   - https://github.com/IgnatovDan/bem-project
   - https://github.com/IgnatovDan/stylelint-bem-newbie
