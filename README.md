@@ -10,8 +10,8 @@ The page is optimized for viewing on desktop (>1024) and on mobile (<1024) devic
 Figma design file: https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1&t=62dRw5GoB0v0sPEO-0
 
 ---
-### Previous steps:
-  - Step "-1"
+### Previous development steps:
+  - Step "-1" (root page layout)
     - Github branch: https://github.com/IgnatovDan/yandex-mesto/tree/p4
     - Figma design file: https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1
 ---
