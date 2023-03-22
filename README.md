@@ -1,6 +1,6 @@
 # The "MeCTO" project
 
-https://ignatovdan.github.io/yandex-p5-mesto-my/ - you can take a look at the project right now!
+https://ignatovdan.github.io/yandex-mesto/ - you can take a look at the project right now!
 
 There are several places with photos and descriptions and photo/name/details of the page owner.
 Also, there are edit forms to change values.
@@ -28,7 +28,7 @@ HTML, CSS-flex, CSS-grid, JS, BEM, Responsive design, Figma
   - https://github.com/IgnatovDan/Sandbox/tree/main/CSS/grid
   - https://github.com/IgnatovDan/Sandbox/tree/main/CSS/media
 - Previous steps:
-  - https://github.com/IgnatovDan/yandex-p4-mesto-my
+  - https://github.com/IgnatovDan/yandex-mesto/tree/p4
 - Tools
   - https://github.com/IgnatovDan/bem-project
   - https://github.com/IgnatovDan/stylelint-bem-newbie
