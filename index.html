@@ -25,76 +25,17 @@
           2. place 'edit' right after name text (cannot setup "ellipsis + center + width-by-content" using css-grid)
           I will use "flex + container"
         -->
-        <h1 class="profile__name">
-          Жак-Ив Кусто
-        </h1>
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button type="button" class="profile__edit">
         </button>
       </div>
 
-      <p class="profile__details">
-        Исследователь океана
-        Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана 
-      </p>
+      <p class="profile__details">Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана Исследователь океана</p>
 
       <button type="button" class="profile__add"></button>
     </section>
     <section>
       <ul class="places-list">
-        <li>
-          <article class="place">
-            <img class="place__image" src="./images/place1.jpg" alt="Карачаевск">
-            <div class="place__caption-container">
-              <h2 class="place__caption">Карачаевск</h2>
-              <button type="button" class="place__like"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img class="place__image" src="./images/place2.jpg" alt="Эльбрус">
-            <div class="place__caption-container">
-              <h2 class="place__caption">Гора Эльбрус</h2>
-              <button type="button" class="place__like place__like_active"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img class="place__image" src="./images/place3.jpg" alt="Домбай">
-            <div class="place__caption-container">
-              <h2 class="place__caption">Домбай</h2>
-              <button type="button" class="place__like"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img class="place__image" src="./images/place4.jpg" alt="Eiffel tower">
-            <div class="place__caption-container">
-              <h2 class="place__caption">Eiffel tower</h2>
-              <button type="button" class="place__like"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img class="place__image" src="./images/place5.jpg" alt="gates">
-            <div class="place__caption-container">
-              <h2 class="place__caption">10000 gates</h2>
-              <button type="button" class="place__like"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img class="place__image" src="./images/place6.jpg" alt="Books">
-            <div class="place__caption-container">
-              <h2 class="place__caption">Books on brown wooden shelves</h2>
-              <button type="button" class="place__like"></button>
-            </div>
-          </article>
-        </li>
       </ul>
     </section>
   </main>
@@ -104,19 +45,57 @@
     </p>
   </footer>
 
-  <div class="overlay overlay_hidden">
-    <div class="overlay__content">
-      <form class="profile-form" name="profile-form">
-        <h2 class="profile-form__caption">Редактировать профиль</h2>
-        <fieldset class="profile-form__field-set">
-          <input class="profile-form__input profile-form__input_name" type="text" aria-label="имя" placeholder="имя">
-          <input class="profile-form__input profile-form__input_details" type="text" aria-label="детали" placeholder="детали">
+  <div class="popup popup_page-is-loading popup_type_edit-profile">
+    <div class="popup__content">
+      <form class="form profile-form" name="profile-form">
+        <h2 class="form__caption">Редактировать профиль</h2>
+        <fieldset class="form__field-set">
+          <input class="form__input profile-form__input_name" type="text" aria-label="имя" placeholder="имя">
+          <input class="form__input profile-form__input_details" type="text" aria-label="детали" placeholder="детали">
         </fieldset>
-        <button type="submit" class="profile-form__save">Сохранить</button>
+        <button type="submit" class="form__save">Сохранить</button>
       </form>
-      <button type="button" class="overlay__close" aria-label="close"></button>
+      <button type="button" class="popup__close" aria-label="close"></button>
     </div>
   </div>
+
+  <div class="popup popup_page-is-loading popup_type_add-place">
+    <div class="popup__content">
+      <form class="form add-place-form" name="add-place-form">
+        <h2 class="form__caption">Новое место</h2>
+        <fieldset class="form__field-set">
+          <input class="form__input add-place-form__input_name" type="text" aria-label="Название" placeholder="Название">
+          <input class="form__input add-place-form__input_link" type="text" aria-label="Ссылка на картинку" placeholder="Ссылка на картинку">
+        </fieldset>
+        <button type="submit" class="form__save">Создать</button>
+      </form>
+      <button type="button" class="popup__close" aria-label="close"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_page-is-loading popup_type_view-place popup_dark-background">
+    <div class="popup__content">
+      <div class="view-place">
+        <img class="view-place__image" src="" alt="template element">
+        <h2 class="view-place__caption">template element</h2>
+      </div>
+      <button type="button" class="popup__close" aria-label="close"></button>
+    </div>
+  </div>
+
+  <template id="places-list-item-template">
+    <li class="places-list__item">
+      <article class="place">
+        <img class="place__image" src="" alt="template element">
+        <div class="place__caption-container">
+          <h2 class="place__caption">template element</h2>
+          <button type="button" class="place__like"></button>
+        </div>
+        <button type="button" class="place__delete" aria-label="Удалить"></button>
+      </article>
+    </li>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 

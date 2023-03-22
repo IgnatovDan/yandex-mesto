@@ -1,0 +1,16 @@
+.view-place__caption {
+  margin: 0;
+  padding-top: 10px;
+
+  /* Size 12px; Line height 14.52px */
+  --line-height: 1.21;
+
+  font-weight: 400;
+  font-size: 12px;
+  line-height: var(--line-height);
+
+  /* set height for empty string equals to one line of text */
+  min-height: calc(1em * var(--line-height)); 
+
+  color: #FFFFFF;
+}

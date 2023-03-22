@@ -1,4 +1,6 @@
 .place__caption {
+  --line-height: 1.2;
+
   padding: 0;
   margin: 0;
 
@@ -8,7 +10,10 @@
 
   font-weight: 900;
   font-size: 24px;
-  line-height: 29px;
+  line-height: var(--line-height);
+
+  /* set height for empty string equals to one line of text. Also, '&ZeroWidthSpace;' can be used instead of empty lines, but it's requires more code. */
+  min-height: calc(1em * var(--line-height)); 
 
   color: #000000;
 }

@@ -1,0 +1,10 @@
+.form__field-set {
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 25px;
+}

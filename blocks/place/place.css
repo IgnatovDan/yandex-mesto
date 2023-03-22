@@ -4,13 +4,15 @@
   width: 282px;
   */
 
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: stretch;
 
   background: #FFFFFF;
   border-radius: 10px;
-  
+
   /*hide child content that overflows 'radius: 10px'*/
   overflow: hidden;
 }

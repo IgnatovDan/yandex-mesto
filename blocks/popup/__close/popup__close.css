@@ -1,4 +1,4 @@
-.overlay__close {
+.popup__close {
   --close-indent: 16px;
 
   position: absolute;
@@ -21,13 +21,13 @@
   transition: opacity .3s ease-out;
 }
 
-.overlay__close:hover {
+.popup__close:hover {
   opacity: 60%;
   cursor: pointer;
 }
 
 @media screen and (min-width: 1024px) {
-  .overlay__close {
+  .popup__close {
     --close-indent: 8px;
 
     left: calc(100% + 8px);

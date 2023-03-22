@@ -1,0 +1,34 @@
+.popup {
+  --fade-in-out-time: 500ms;
+
+  position: fixed;
+  /* 0? 9999 ? */
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  background: rgba(0, 0, 0, .5);
+
+  /*
+  For popup_hidden:
+  transition: opacity var(--fade-in-out-time);
+  opacity: 1;
+  visibility: visible; 
+  +
+  .popup_hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--fade-in-out-time), visibility 0s linear var(--fade-in-out-time);
+  }
+  */
+
+  transition: opacity var(--fade-in-out-time), visibility 0s linear var(--fade-in-out-time);
+  opacity: 0;
+  visibility: hidden;
+}

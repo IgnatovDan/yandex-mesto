@@ -1,15 +1,13 @@
-.overlay__content {
+.popup__content {
   --v-scrollbar-width: 16px;
 
   position: relative;
   max-width: calc(100vw - 2 * var(--v-scrollbar-width));
   max-height: 100vh;
-
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 }
 
 @media screen and (min-width: 1024px) {
-  .overlay__content {
+  .popup__content {
     --close-width: 32px;
     --close-indent: 8px;
 
