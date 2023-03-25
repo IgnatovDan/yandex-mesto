@@ -55,8 +55,42 @@ function createEditProfilePopup() {
   return result;
 }
 
+function createAddPlacePopup() {
+  const result = {};
+  result.popupEl = document.querySelector('.popup_type_add-place');
+
+  result.formEl = result.popupEl.querySelector('.add-place-form');
+  result.formEl.addEventListener('submit', () => {
+    evt.preventDefault();
+    result.submitEventHandler?.({
+      name: result.nameInput.value,
+      link: result.linkInput.value,
+    });
+    hidePopup(result.popupEl);
+  });
+
+  result.nameInput = result.formEl.querySelector('.add-place-form__input_name');
+  result.linkInput = result.formEl.querySelector('.add-place-form__input_link');
+
+  result.showAddPlaceForm = () => {
+    result.formEl.querySelectorAll('.form__input').forEach((inputEl) => {
+      inputEl.value = '';
+      inputEl.classList.add(BEM_FORM__INPUT_INITIAL_STATE);
+    });
+  
+    result.formEl.querySelectorAll(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`).forEach((messageEl) => {
+      messageEl.content = '';
+    });
+  
+    showPopup(result.popupEl);
+  }
+  
+  return result;
+}
+
 const editProfilePopup = createEditProfilePopup();
 const profileSection = createProfileSection();
+const addPlacePopup = createAddPlacePopup();
 
 profileSection.editProfileEventHandler = ({ name, details }) => {
   editProfilePopup.showProfileEditForm({ name, details });
@@ -66,11 +100,9 @@ editProfilePopup.submitEventHandler = ({ name, details }) => {
   profileSection.updateProfileElements({ name, details });
 };
 
-let popupAddPlaceEl = document.querySelector('.popup_type_add-place');
-let addPlaceFormEl = popupAddPlaceEl.querySelector('.add-place-form');
-let addPlaceFormNameInput = addPlaceFormEl.querySelector('.add-place-form__input_name');
-let addPlaceFormLinkInput = addPlaceFormEl.querySelector('.add-place-form__input_link');
-
+addPlacePopup.submitEventHandler = ({ name, link }) => {
+  placesListEl.prepend(renderPlaceEl({ name, link }));
+}
 let popupViewPlaceEl = document.querySelector('.popup_type_view-place');
 let viewPlaceEl = popupViewPlaceEl.querySelector('.view-place');
 let viewPlaceImageEl = viewPlaceEl.querySelector('.view-place__image');
@@ -114,27 +146,7 @@ function showPopup(popupEl) {
   popupEl.classList.add(BEM_POPUP_OPENED);
 }
 
-function showAddPlaceForm() {
-  popupAddPlaceEl.querySelectorAll('.form__input').forEach((inputEl) => {
-    inputEl.value = '';
-    inputEl.classList.add(BEM_FORM__INPUT_INITIAL_STATE);
-  });
 
-  popupAddPlaceEl.querySelectorAll(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`).forEach((messageEl) => {
-    messageEl.content = '';
-  });
-
-  showPopup(popupAddPlaceEl);
-}
-
-function addPlaceFormSubmitHandler(evt) {
-  evt.preventDefault();
-  placesListEl.prepend(renderPlaceEl({
-    name: addPlaceFormNameInput.value,
-    link: addPlaceFormLinkInput.value,
-  }));
-  hidePopup(evt.target.closest(`.${BEM_POPUP}`));
-}
 
 function renderPlaceEl({ name, link }) {
   function likePlaceClickHandler(evt) {
@@ -177,8 +189,6 @@ document.querySelectorAll(`.${BEM_POPUP}`).forEach((popupEl) => {
     hidePopup(popupEl);
   });
 });
-
-addPlaceFormEl.addEventListener('submit', addPlaceFormSubmitHandler);
 
 document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
   const inputInvalidModifier = 'form__input_invalid';
