@@ -4,43 +4,66 @@ const BEM_PLACE__CAPTION = 'place__caption';
 const BEM_FORM__INPUT_INITIAL_STATE = 'form__input_initial-state';
 const BEM_FORM__INPUT_VALIDATION_MESSAGE = 'form__input-validation-message';
 
-let profileNameEl = document.querySelector('.profile__name');
-let profileDetailsEl = document.querySelector('.profile__details');
-let profileEditEl = document.querySelector('.profile__edit');
-let profileAddPlaceEl = document.querySelector('.profile__add');
+function createProfileSection() {
+  const result = {};
+  result.nameEl = document.querySelector('.profile__name');
+  result.detailsEl = document.querySelector('.profile__details');
 
-const editProfilePopup = createEditProfilePopup({
-  submitCallback: updateProfileElements,
-});
+  result.editEl = document.querySelector('.profile__edit');
+  result.editEl.addEventListener('click', () => {
+    result.editProfileEventHandler?.({
+      name: result.nameEl.textContent,
+      details: result.detailsEl.textContent,
+    });
+  });
 
-function createEditProfilePopup({ submitCallback }) {
+  result.addPlaceEl = document.querySelector('.profile__add');
+  result.addPlaceEl.addEventListener('click', showAddPlaceForm);
+
+  result.updateProfileElements = ({ name, details }) => {
+    result.nameEl.textContent = name;
+    result.detailsEl.textContent = details;
+  };
+
+  return result;
+}
+
+function createEditProfilePopup() {
   const result = {};
 
   result.popupEl = document.querySelector('.popup_type_edit-profile');
+
   result.formEl = result.popupEl.querySelector('.profile-form');
-  result.nameInput = result.formEl.querySelector('.profile-form__input_name');
-  result.detailsInput = result.formEl.querySelector('.profile-form__input_details');
-  result.showProfileEditForm = ({ name, details }) => {
-    result.nameInput.value = name;
-    result.detailsInput.value = details;
-    showPopup(result.popupEl);
-  }
-  result.submitCallback = submitCallback;
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    result.submitCallback({
+    result.submitEventHandler?.({
       name: result.nameInput.value,
       details: result.detailsInput.value,
     });
     hidePopup(result.popupEl);
   });
 
+  result.nameInput = result.formEl.querySelector('.profile-form__input_name');
+  result.detailsInput = result.formEl.querySelector('.profile-form__input_details');
+
+  result.showProfileEditForm = ({ name, details }) => {
+    result.nameInput.value = name;
+    result.detailsInput.value = details;
+    showPopup(result.popupEl);
+  }
+
   return result;
 }
 
-function updateProfileElements({ name, details }) {
-  profileNameEl.textContent = name;
-  profileDetailsEl.textContent = details;
+const editProfilePopup = createEditProfilePopup();
+const profileSection = createProfileSection();
+
+profileSection.editProfileEventHandler = ({ name, details }) => {
+  editProfilePopup.showProfileEditForm({ name, details });
+}
+
+editProfilePopup.submitEventHandler = ({ name, details }) => {
+  profileSection.updateProfileElements({ name, details });
 };
 
 let popupAddPlaceEl = document.querySelector('.popup_type_add-place');
@@ -177,14 +200,6 @@ document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
     }
   });
 });
-
-profileEditEl.addEventListener('click', () => {
-  editProfilePopup.showProfileEditForm({
-    name: profileNameEl.textContent,
-    details: profileDetailsEl.textContent,
-  });
-});
-profileAddPlaceEl.addEventListener('click', showAddPlaceForm);
 
 renderPlacesList(initialCards);
 
