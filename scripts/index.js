@@ -1,8 +1,45 @@
-const BEM_POPUP = 'popup';
-const BEM_POPUP_OPENED = 'popup_opened';
 const BEM_PLACE__CAPTION = 'place__caption';
 const BEM_FORM__INPUT_INITIAL_STATE = 'form__input_initial-state';
 const BEM_FORM__INPUT_VALIDATION_MESSAGE = 'form__input-validation-message';
+
+function createPopup(popupEl) {
+  const BEM_POPUP_OPENED = 'popup_opened';
+  const result = {};
+  result.popupEl = popupEl;
+  result.popupCloseEl = result.popupEl.querySelector('.popup__close');
+
+  result.hide = () => {
+    result.popupEl.classList.remove(BEM_POPUP_OPENED);
+  };
+  result.show = () => {
+    result.popupEl.classList.add(BEM_POPUP_OPENED);
+  };
+  result.popupCloseEl.addEventListener('click', (evt) => {
+    result.closingEventHandler?.();
+    result.hide(popupEl);
+  });
+
+  return result;
+}
+
+function initializePopups() {
+  const BEM_POPUP = 'popup';
+
+  function removePopupPageIsLoadingState() {
+      // use querySelectorAll because long list of event handlers works slow
+      for (let popup of document.querySelectorAll(`.${BEM_POPUP}`)) {
+      popup.classList.remove('popup_page-is-loading');
+    }
+    document.removeEventListener('DOMContentLoaded', removePopupPageIsLoadingState);
+  }
+
+  if (document.readyState == 'loading') {
+    // https://learn.javascript.ru/onload-ondomcontentloaded#readystate
+    document.addEventListener('DOMContentLoaded', removePopupPageIsLoadingState);
+  } else {
+    removePopupPageIsLoadingState();
+  }
+}
 
 function createProfileSection(sectionEl) {
   const result = {};
@@ -34,6 +71,7 @@ function createEditProfilePopup(popupEl) {
   const result = {};
 
   result.popupEl = popupEl;
+  result.popup = createPopup(popupEl);
 
   result.formEl = result.popupEl.querySelector('.profile-form');
   result.formEl.addEventListener('submit', (evt) => {
@@ -42,7 +80,7 @@ function createEditProfilePopup(popupEl) {
       name: result.nameInput.value,
       details: result.detailsInput.value,
     });
-    hidePopup(result.popupEl);
+    result.popup.hide();
   });
 
   result.nameInput = result.formEl.querySelector('.profile-form__input_name');
@@ -51,7 +89,7 @@ function createEditProfilePopup(popupEl) {
   result.show = ({ name, details }) => {
     result.nameInput.value = name;
     result.detailsInput.value = details;
-    showPopup(result.popupEl);
+    result.popup.show();
   }
 
   return result;
@@ -60,6 +98,7 @@ function createEditProfilePopup(popupEl) {
 function createAddPlacePopup(popupEl) {
   const result = {};
   result.popupEl = popupEl;
+  result.popup = createPopup(popupEl);
 
   result.formEl = result.popupEl.querySelector('.add-place-form');
   result.formEl.addEventListener('submit', (evt) => {
@@ -68,7 +107,7 @@ function createAddPlacePopup(popupEl) {
       name: result.nameInput.value,
       link: result.linkInput.value,
     });
-    hidePopup(result.popupEl);
+    result.popup.hide();
   });
 
   result.nameInput = result.formEl.querySelector('.add-place-form__input_name');
@@ -84,7 +123,7 @@ function createAddPlacePopup(popupEl) {
       messageEl.content = '';
     });
   
-    showPopup(result.popupEl);
+    result.popup.show();
   }
   
   return result;
@@ -93,6 +132,7 @@ function createAddPlacePopup(popupEl) {
 function createViewPlacePopup(popupEl) {
   const result = {};
   result.popupEl = popupEl;
+  result.popup = createPopup(popupEl);
   result.viewPlaceEl = result.popupEl.querySelector('.view-place');
   result.imageEl = result.viewPlaceEl.querySelector('.view-place__image');
   result.captionEl = result.viewPlaceEl.querySelector('.view-place__caption');
@@ -100,7 +140,7 @@ function createViewPlacePopup(popupEl) {
   result.show = ({ caption, link }) => {
     result.imageEl.src = link;
     result.captionEl.textContent = caption;
-    showPopup(result.popupEl);
+    result.popup.show();
   };
 
   return result;
@@ -156,14 +196,6 @@ const initialCards = [
   }
 ];
 
-function hidePopup(popupEl) {
-  popupEl.classList.remove(BEM_POPUP_OPENED);
-}
-
-function showPopup(popupEl) {
-  popupEl.classList.add(BEM_POPUP_OPENED);
-}
-
 function renderPlaceEl({ name, link }) {
   function likePlaceClickHandler(evt) {
     evt.target.classList.toggle('place__like_active');
@@ -195,18 +227,6 @@ function renderPlacesList(cards) {
   cards.forEach(card => placesListEl.append(renderPlaceEl(card)));
 }
 
-function removePopupPageIsLoadingState() {
-  for (let popup of document.querySelectorAll(`.${BEM_POPUP}`)) {
-    popup.classList.remove('popup_page-is-loading');
-  }
-}
-
-document.querySelectorAll(`.${BEM_POPUP}`).forEach((popupEl) => {
-  popupEl.querySelector('.popup__close').addEventListener('click', (evt) => {
-    hidePopup(popupEl);
-  });
-});
-
 document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
   const inputInvalidModifier = 'form__input_invalid';
 
@@ -229,10 +249,4 @@ document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
 });
 
 renderPlacesList(initialCards);
-
-if (document.readyState == 'loading') {
-  // https://learn.javascript.ru/onload-ondomcontentloaded#readystate
-  document.addEventListener('DOMContentLoaded', removePopupPageIsLoadingState);
-} else {
-  removePopupPageIsLoadingState();
-}
+initializePopups();
