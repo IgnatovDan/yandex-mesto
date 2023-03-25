@@ -1,0 +1,10 @@
+.form__input-validation-message {
+  /* ? set max to single line, show ellipsis for long texts ? */
+  margin: 0;
+  color: rgba(255, 0, 0);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+
+  display: none;
+}

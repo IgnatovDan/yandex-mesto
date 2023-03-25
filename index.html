@@ -50,10 +50,16 @@
       <form class="form profile-form" name="profile-form">
         <h2 class="form__caption">Редактировать профиль</h2>
         <fieldset class="form__field-set">
-          <input class="form__input profile-form__input_name" type="text" aria-label="имя"
-            placeholder="имя" required minlength="2" maxlength="40">
-          <input class="form__input profile-form__input_details" type="text" aria-label="детали"
-            placeholder="детали" required minlength="2" maxlength="200">
+          <div class="form__input-group">
+            <input class="form__input profile-form__input_name" type="text" aria-label="имя"
+              placeholder="имя" required minlength="2" maxlength="40">
+            <p class="form__input-validation-message"></p>
+          </div>
+          <div class="form__input-group">
+            <input class="form__input profile-form__input_details" type="text" aria-label="детали"
+              placeholder="детали" required minlength="2" maxlength="200">
+            <p class="form__input-validation-message"></p>
+          </div>
         </fieldset>
         <button type="submit" class="form__save">Сохранить</button>
       </form>
@@ -66,10 +72,16 @@
       <form class="form add-place-form" name="add-place-form">
         <h2 class="form__caption">Новое место</h2>
         <fieldset class="form__field-set">
-          <input class="form__input add-place-form__input_name" type="text" aria-label="Название"
-            placeholder="Название" required minlength="2" maxlength="30">
-          <input class="form__input add-place-form__input_link" type="url" aria-label="Ссылка на картинку"
-            placeholder="Ссылка на картинку" required>
+          <div class="form__input-group">
+            <input class="form__input add-place-form__input_name" type="text" aria-label="Название"
+              placeholder="Название" required minlength="2" maxlength="30">
+            <p class="form__input-validation-message"></p>
+          </div>
+          <div class="form__input-group">
+            <input class="form__input add-place-form__input_link" type="url" aria-label="Ссылка на картинку"
+              placeholder="Ссылка на картинку" required>
+            <p class="form__input-validation-message"></p>
+          </div>
         </fieldset>
         <button type="submit" class="form__save">Создать</button>
       </form>

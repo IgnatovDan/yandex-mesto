@@ -1,6 +1,8 @@
 const BEM_POPUP = 'popup';
 const BEM_POPUP_OPENED = 'popup_opened';
 const BEM_PLACE__CAPTION = 'place__caption';
+const BEM_FORM__INPUT_INITIAL_STATE = 'form__input_initial-state';
+const BEM_FORM__INPUT_VALIDATION_MESSAGE = 'form__input-validation-message';
 
 let profileNameEl = document.querySelector('.profile__name');
 let profileDetailsEl = document.querySelector('.profile__details');
@@ -76,6 +78,15 @@ function profileEditFormSubmitHandler(evt) {
 }
 
 function showAddPlaceForm() {
+  popupAddPlaceEl.querySelectorAll('.form__input').forEach((inputEl) => {
+    inputEl.value = '';
+    inputEl.classList.add(BEM_FORM__INPUT_INITIAL_STATE);
+  });
+
+  popupAddPlaceEl.querySelectorAll(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`).forEach((messageEl) => {
+    messageEl.content = '';
+  });
+
   showPopup(popupAddPlaceEl);
 }
 
@@ -129,7 +140,29 @@ for (let element of popupCloseElements) {
 }
 
 profileFormEl.addEventListener('submit', profileEditFormSubmitHandler);
+
 addPlaceFormEl.addEventListener('submit', addPlaceFormSubmitHandler);
+
+document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
+  const inputInvalidModifier = 'form__input_invalid';
+
+  const validationMessageEl = inputGroupEl.querySelector(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`);
+  const inputEl = inputGroupEl.querySelector('.form__input');
+
+  // Or, use event bubble: inputGroupEl.addEventListener('input', (evt) => {
+  inputEl.addEventListener('input', (evt) => {
+    inputEl.classList.remove(BEM_FORM__INPUT_INITIAL_STATE);
+    if (evt.target.validity.valid) {
+      validationMessageEl.textContent = ''; // empty content sets 0px height and element is not visible
+      inputEl.classList.remove(inputInvalidModifier);
+    }
+    else {
+      // there can be smooth show/hide similar to popup show/hide
+      validationMessageEl.textContent = evt.target.validationMessage;
+      inputEl.classList.add(inputInvalidModifier);
+    }
+  });
+});
 
 profileEditEl.addEventListener('click', showProfileEditForm);
 profileAddPlaceEl.addEventListener('click', showAddPlaceForm);

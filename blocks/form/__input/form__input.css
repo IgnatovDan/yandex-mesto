@@ -22,11 +22,15 @@
 
 .form__input:focus {
   outline: none;
-  border-bottom-color: rgba(0, 0, 0, 1);
+  border-bottom-color: rgba(0, 0, 0);
 }
 
 .form__input:invalid {
   border-bottom-color: rgba(255, 0, 0);
+}
+
+.form__input_initial-state:invalid {
+  border-bottom-color: rgba(0, 0, 0);
 }
 
 @media screen and (min-width: 1024px) {
