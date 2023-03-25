@@ -9,8 +9,6 @@ let profileDetailsEl = document.querySelector('.profile__details');
 let profileEditEl = document.querySelector('.profile__edit');
 let profileAddPlaceEl = document.querySelector('.profile__add');
 
-let popupCloseElements = document.querySelectorAll('.popup__close');
-
 let popupEditProfileEl = document.querySelector('.popup_type_edit-profile');
 let profileFormEl = popupEditProfileEl.querySelector('.profile-form');
 let profileFormNameInput = profileFormEl.querySelector('.profile-form__input_name');
@@ -99,22 +97,22 @@ function addPlaceFormSubmitHandler(evt) {
   hidePopup(evt.target.closest(`.${BEM_POPUP}`));
 }
 
-function likePlaceClickHandler(evt) {
-  evt.target.classList.toggle('place__like_active');
-}
-
-function deletePlaceClickHandler(evt) {
-  evt.target.closest('.places-list__item').remove();
-}
-
-function imageClickHandler(evt) {
-  viewPlaceImageEl.src = evt.target.src;
-  const placeCaptionEl = evt.target.closest('.place').querySelector(`.${BEM_PLACE__CAPTION}`);
-  viewPlaceCaptionEl.textContent = placeCaptionEl.textContent;
-  showPopup(popupViewPlaceEl);
-}
-
 function renderPlaceEl({ name, link }) {
+  function likePlaceClickHandler(evt) {
+    evt.target.classList.toggle('place__like_active');
+  }
+  
+  function deletePlaceClickHandler(evt) {
+    evt.target.closest('.places-list__item').remove();
+  }
+  
+  function imageClickHandler(evt) {
+    viewPlaceImageEl.src = evt.target.src;
+    const placeCaptionEl = evt.target.closest('.place').querySelector(`.${BEM_PLACE__CAPTION}`);
+    viewPlaceCaptionEl.textContent = placeCaptionEl.textContent;
+    showPopup(popupViewPlaceEl);
+  }
+  
   const placeEl = placeTemplate.cloneNode(true);
   const imageEl = placeEl.querySelector('.place__image');
   imageEl.src = link;
@@ -135,9 +133,11 @@ function removePopupPageIsLoadingState() {
   }
 }
 
-for (let element of popupCloseElements) {
-  element.addEventListener('click', (evt) => hidePopup(evt.target.closest(`.${BEM_POPUP}`)));
-}
+document.querySelectorAll(`.${BEM_POPUP}`).forEach((popupEl) => {
+  popupEl.querySelector('.popup__close').addEventListener('click', (evt) => {
+    hidePopup(popupEl);
+  });
+});
 
 profileFormEl.addEventListener('submit', profileEditFormSubmitHandler);
 
