@@ -9,10 +9,26 @@ let profileDetailsEl = document.querySelector('.profile__details');
 let profileEditEl = document.querySelector('.profile__edit');
 let profileAddPlaceEl = document.querySelector('.profile__add');
 
-let popupEditProfileEl = document.querySelector('.popup_type_edit-profile');
-let profileFormEl = popupEditProfileEl.querySelector('.profile-form');
-let profileFormNameInput = profileFormEl.querySelector('.profile-form__input_name');
-let profileFormDetailsInput = profileFormEl.querySelector('.profile-form__input_details');
+const editProfilePopup = {};
+editProfilePopup.popupEl = document.querySelector('.popup_type_edit-profile');
+editProfilePopup.formEl = editProfilePopup.popupEl.querySelector('.profile-form');
+editProfilePopup.nameInput = editProfilePopup.formEl.querySelector('.profile-form__input_name');
+editProfilePopup.detailsInput = editProfilePopup.formEl.querySelector('.profile-form__input_details');
+editProfilePopup.showProfileEditForm = () => {
+  editProfilePopup.nameInput.value = profileNameEl.textContent;
+  editProfilePopup.detailsInput.value = profileDetailsEl.textContent;
+  showPopup(editProfilePopup.popupEl);
+}
+editProfilePopup.formEl.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  profileNameEl.textContent = editProfilePopup.nameInput.value;
+  profileDetailsEl.textContent = editProfilePopup.detailsInput.value;
+  hidePopup(editProfilePopup.popupEl);
+});
+
+
+
+
 
 let popupAddPlaceEl = document.querySelector('.popup_type_add-place');
 let addPlaceFormEl = popupAddPlaceEl.querySelector('.add-place-form');
@@ -60,19 +76,6 @@ function hidePopup(popupEl) {
 
 function showPopup(popupEl) {
   popupEl.classList.add(BEM_POPUP_OPENED);
-}
-
-function showProfileEditForm() {
-  profileFormNameInput.value = profileNameEl.textContent;
-  profileFormDetailsInput.value = profileDetailsEl.textContent;
-  showPopup(popupEditProfileEl);
-}
-
-function profileEditFormSubmitHandler(evt) {
-  evt.preventDefault();
-  profileNameEl.textContent = profileFormNameInput.value;
-  profileDetailsEl.textContent = profileFormDetailsInput.value;
-  hidePopup(evt.target.closest(`.${BEM_POPUP}`));
 }
 
 function showAddPlaceForm() {
@@ -139,8 +142,6 @@ document.querySelectorAll(`.${BEM_POPUP}`).forEach((popupEl) => {
   });
 });
 
-profileFormEl.addEventListener('submit', profileEditFormSubmitHandler);
-
 addPlaceFormEl.addEventListener('submit', addPlaceFormSubmitHandler);
 
 document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
@@ -164,7 +165,7 @@ document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
   });
 });
 
-profileEditEl.addEventListener('click', showProfileEditForm);
+profileEditEl.addEventListener('click', editProfilePopup.showProfileEditForm);
 profileAddPlaceEl.addEventListener('click', showAddPlaceForm);
 
 renderPlacesList(initialCards);
