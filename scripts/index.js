@@ -4,12 +4,12 @@ const BEM_PLACE__CAPTION = 'place__caption';
 const BEM_FORM__INPUT_INITIAL_STATE = 'form__input_initial-state';
 const BEM_FORM__INPUT_VALIDATION_MESSAGE = 'form__input-validation-message';
 
-function createProfileSection() {
+function createProfileSection(sectionEl) {
   const result = {};
-  result.nameEl = document.querySelector('.profile__name');
-  result.detailsEl = document.querySelector('.profile__details');
+  result.nameEl = sectionEl.querySelector('.profile__name');
+  result.detailsEl = sectionEl.querySelector('.profile__details');
 
-  result.editEl = document.querySelector('.profile__edit');
+  result.editEl = sectionEl.querySelector('.profile__edit');
   result.editEl.addEventListener('click', () => {
     result.editProfileEventHandler?.({
       name: result.nameEl.textContent,
@@ -17,8 +17,10 @@ function createProfileSection() {
     });
   });
 
-  result.addPlaceEl = document.querySelector('.profile__add');
-  result.addPlaceEl.addEventListener('click', showAddPlaceForm);
+  result.addPlaceEl = sectionEl.querySelector('.profile__add');
+  result.addPlaceEl.addEventListener('click', () => {
+    result.addPlaceEventHandler?.();
+  });
 
   result.updateProfileElements = ({ name, details }) => {
     result.nameEl.textContent = name;
@@ -28,10 +30,10 @@ function createProfileSection() {
   return result;
 }
 
-function createEditProfilePopup() {
+function createEditProfilePopup(popupEl) {
   const result = {};
 
-  result.popupEl = document.querySelector('.popup_type_edit-profile');
+  result.popupEl = popupEl;
 
   result.formEl = result.popupEl.querySelector('.profile-form');
   result.formEl.addEventListener('submit', (evt) => {
@@ -46,7 +48,7 @@ function createEditProfilePopup() {
   result.nameInput = result.formEl.querySelector('.profile-form__input_name');
   result.detailsInput = result.formEl.querySelector('.profile-form__input_details');
 
-  result.showProfileEditForm = ({ name, details }) => {
+  result.show = ({ name, details }) => {
     result.nameInput.value = name;
     result.detailsInput.value = details;
     showPopup(result.popupEl);
@@ -55,12 +57,12 @@ function createEditProfilePopup() {
   return result;
 }
 
-function createAddPlacePopup() {
+function createAddPlacePopup(popupEl) {
   const result = {};
-  result.popupEl = document.querySelector('.popup_type_add-place');
+  result.popupEl = popupEl;
 
   result.formEl = result.popupEl.querySelector('.add-place-form');
-  result.formEl.addEventListener('submit', () => {
+  result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
     result.submitEventHandler?.({
       name: result.nameInput.value,
@@ -72,7 +74,7 @@ function createAddPlacePopup() {
   result.nameInput = result.formEl.querySelector('.add-place-form__input_name');
   result.linkInput = result.formEl.querySelector('.add-place-form__input_link');
 
-  result.showAddPlaceForm = () => {
+  result.show = () => {
     result.formEl.querySelectorAll('.form__input').forEach((inputEl) => {
       inputEl.value = '';
       inputEl.classList.add(BEM_FORM__INPUT_INITIAL_STATE);
@@ -88,12 +90,15 @@ function createAddPlacePopup() {
   return result;
 }
 
-const editProfilePopup = createEditProfilePopup();
-const profileSection = createProfileSection();
-const addPlacePopup = createAddPlacePopup();
+const editProfilePopup = createEditProfilePopup(document.querySelector('.popup_type_edit-profile'));
+const profileSection = createProfileSection(document.querySelector('.profile'));
+const addPlacePopup = createAddPlacePopup(document.querySelector('.popup_type_add-place'));
 
 profileSection.editProfileEventHandler = ({ name, details }) => {
-  editProfilePopup.showProfileEditForm({ name, details });
+  editProfilePopup.show({ name, details });
+}
+profileSection.addPlaceEventHandler = () => {
+  addPlacePopup.show();
 }
 
 editProfilePopup.submitEventHandler = ({ name, details }) => {
@@ -103,6 +108,7 @@ editProfilePopup.submitEventHandler = ({ name, details }) => {
 addPlacePopup.submitEventHandler = ({ name, link }) => {
   placesListEl.prepend(renderPlaceEl({ name, link }));
 }
+
 let popupViewPlaceEl = document.querySelector('.popup_type_view-place');
 let viewPlaceEl = popupViewPlaceEl.querySelector('.view-place');
 let viewPlaceImageEl = viewPlaceEl.querySelector('.view-place__image');
