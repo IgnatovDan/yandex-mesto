@@ -90,9 +90,26 @@ function createAddPlacePopup(popupEl) {
   return result;
 }
 
+function createViewPlacePopup(popupEl) {
+  const result = {};
+  result.popupEl = popupEl;
+  result.viewPlaceEl = result.popupEl.querySelector('.view-place');
+  result.imageEl = result.viewPlaceEl.querySelector('.view-place__image');
+  result.captionEl = result.viewPlaceEl.querySelector('.view-place__caption');
+
+  result.show = ({ caption, link }) => {
+    result.imageEl.src = link;
+    result.captionEl.textContent = caption;
+    showPopup(result.popupEl);
+  };
+
+  return result;
+}
+
 const editProfilePopup = createEditProfilePopup(document.querySelector('.popup_type_edit-profile'));
 const profileSection = createProfileSection(document.querySelector('.profile'));
 const addPlacePopup = createAddPlacePopup(document.querySelector('.popup_type_add-place'));
+const viewPlacePopup = createViewPlacePopup(document.querySelector('.popup_type_view-place'));
 
 profileSection.editProfileEventHandler = ({ name, details }) => {
   editProfilePopup.show({ name, details });
@@ -108,11 +125,6 @@ editProfilePopup.submitEventHandler = ({ name, details }) => {
 addPlacePopup.submitEventHandler = ({ name, link }) => {
   placesListEl.prepend(renderPlaceEl({ name, link }));
 }
-
-let popupViewPlaceEl = document.querySelector('.popup_type_view-place');
-let viewPlaceEl = popupViewPlaceEl.querySelector('.view-place');
-let viewPlaceImageEl = viewPlaceEl.querySelector('.view-place__image');
-let viewPlaceCaptionEl = viewPlaceEl.querySelector('.view-place__caption');
 
 let placeTemplate = document.querySelector('#places-list-item-template').content;
 let placesListEl = document.querySelector('.places-list');
@@ -152,8 +164,6 @@ function showPopup(popupEl) {
   popupEl.classList.add(BEM_POPUP_OPENED);
 }
 
-
-
 function renderPlaceEl({ name, link }) {
   function likePlaceClickHandler(evt) {
     evt.target.classList.toggle('place__like_active');
@@ -164,10 +174,11 @@ function renderPlaceEl({ name, link }) {
   }
   
   function imageClickHandler(evt) {
-    viewPlaceImageEl.src = evt.target.src;
     const placeCaptionEl = evt.target.closest('.place').querySelector(`.${BEM_PLACE__CAPTION}`);
-    viewPlaceCaptionEl.textContent = placeCaptionEl.textContent;
-    showPopup(popupViewPlaceEl);
+    viewPlacePopup.show({
+      caption: placeCaptionEl.textContent,
+      link: evt.target.src
+    });
   }
   
   const placeEl = placeTemplate.cloneNode(true);
