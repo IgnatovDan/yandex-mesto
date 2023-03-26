@@ -1,4 +1,4 @@
-const BEM_FORM__INPUT_INITIAL_STATE = 'form__input_initial-state';
+const BEM_FORM__INPUT_INITIAL_STATE_MODIFIER = 'form__input_initial-state';
 const BEM_FORM__INPUT_VALIDATION_MESSAGE = 'form__input-validation-message';
 
 function createPopup(popupEl) {
@@ -119,7 +119,7 @@ function createAddPlacePopup(popupEl) {
   result.show = () => {
     result.formEl.querySelectorAll('.form__input').forEach((inputEl) => {
       inputEl.value = '';
-      inputEl.classList.add(BEM_FORM__INPUT_INITIAL_STATE);
+      inputEl.classList.add(BEM_FORM__INPUT_INITIAL_STATE_MODIFIER);
     });
 
     result.formEl.querySelectorAll(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`).forEach((messageEl) => {
@@ -274,24 +274,36 @@ const initialCards = [
   }
 ];
 
-document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
-  const BEM_FORM__INPUT_INVALID_MODIFIER = 'form__input_invalid';
+function refreshFormSubmit(inputElements, submitEl) {
+  const hasInvalidInput = inputElements.some((input) => !input.validity.valid);
+  // can be slow in complex forms: !!formEl.querySelector('input:invalid');
+  submitEl?.classList.toggle('form__save_disabled', hasInvalidInput);
+}
 
-  const validationMessageEl = inputGroupEl.querySelector(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`);
-  const inputEl = inputGroupEl.querySelector('.form__input');
+document.querySelectorAll('.form').forEach((formEl) => {
+  const submitEl = formEl.querySelector('.form__save');
+  const inputElements = Array.from(formEl.querySelectorAll('.form__input'));
+  formEl.querySelectorAll('.form__input-with-message').forEach((inputGroupEl) => {
+    const BEM_FORM__INPUT_INVALID_MODIFIER = 'form__input_invalid';
 
-  // Or, use event bubble: inputGroupEl.addEventListener('input', (evt) => {
-  inputEl.addEventListener('input', (evt) => {
-    inputEl.classList.remove(BEM_FORM__INPUT_INITIAL_STATE);
-    if (evt.target.validity.valid) {
-      validationMessageEl.textContent = '';
-      inputEl.classList.remove(BEM_FORM__INPUT_INVALID_MODIFIER);
-    }
-    else {
-      // can be better: implement smooth show/hide similar to popup show/hide
-      validationMessageEl.textContent = evt.target.validationMessage;
-      inputEl.classList.add(BEM_FORM__INPUT_INVALID_MODIFIER);
-    }
+    const validationMessageEl = inputGroupEl.querySelector(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`);
+    const inputEl = inputGroupEl.querySelector('.form__input');
+    refreshFormSubmit(inputElements, submitEl);
+
+    // Or, use event bubble: inputGroupEl.addEventListener('input', (evt) => {
+    inputEl.addEventListener('input', (evt) => {
+      inputEl.classList.remove(BEM_FORM__INPUT_INITIAL_STATE_MODIFIER);
+      refreshFormSubmit(inputElements, submitEl);
+      if (evt.target.validity.valid) {
+        validationMessageEl.textContent = '';
+        inputEl.classList.remove(BEM_FORM__INPUT_INVALID_MODIFIER);
+      }
+      else {
+        // can be better: implement smooth show/hide similar to popup show/hide
+        validationMessageEl.textContent = evt.target.validationMessage;
+        inputEl.classList.add(BEM_FORM__INPUT_INVALID_MODIFIER);
+      }
+    });
   });
 });
 
