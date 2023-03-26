@@ -17,10 +17,14 @@ function createPopup(popupEl) {
   };
 
   result.popupCloseEl.addEventListener('click', (evt) => {
-    // clear form/elements values ???
-    // result.closingEvent?.();
     result.onHiding?.();
     result.hide(popupEl);
+  });
+
+  result.popupEl.addEventListener('click', (evt) => {
+    if (evt.target === result.popupEl) {
+      result.hide();
+    }
   });
 
   function removePopupPageIsLoadingState() {
@@ -163,7 +167,7 @@ function createViewPlacePopup(popupEl) {
     // Clear src to avoid previous image flick when popup is being shown: old image is painted for a short time
     result.imageEl.src = '';
     // Clear caption in addition (for security reason?)
-    result.captionEl.textContent = caption;
+    result.captionEl.textContent = '';
   }
 
   return result;
