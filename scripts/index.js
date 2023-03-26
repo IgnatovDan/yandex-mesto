@@ -1,4 +1,3 @@
-const BEM_PLACE__CAPTION = 'place__caption';
 const BEM_FORM__INPUT_INITIAL_STATE = 'form__input_initial-state';
 const BEM_FORM__INPUT_VALIDATION_MESSAGE = 'form__input-validation-message';
 
@@ -15,7 +14,8 @@ function createPopup(popupEl) {
     result.popupEl.classList.add(BEM_POPUP_OPENED);
   };
   result.popupCloseEl.addEventListener('click', (evt) => {
-    result.closingEventHandler?.();
+    // clear form/elements values ???
+    // result.closingEvent?.();
     result.hide(popupEl);
   });
 
@@ -48,7 +48,7 @@ function createProfileSection(sectionEl) {
 
   result.editEl = sectionEl.querySelector('.profile__edit');
   result.editEl.addEventListener('click', () => {
-    result.editProfileEventHandler?.({
+    result.onEditProfile?.({
       name: result.nameEl.textContent,
       details: result.detailsEl.textContent,
     });
@@ -56,7 +56,7 @@ function createProfileSection(sectionEl) {
 
   result.addPlaceEl = sectionEl.querySelector('.profile__add');
   result.addPlaceEl.addEventListener('click', () => {
-    result.addPlaceEventHandler?.();
+    result.onAddPlace?.();
   });
 
   result.updateProfileElements = ({ name, details }) => {
@@ -76,7 +76,7 @@ function createEditProfilePopup(popupEl) {
   result.formEl = result.popupEl.querySelector('.profile-form');
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    result.submitEventHandler?.({
+    result.onSubmit?.({
       name: result.nameInput.value,
       details: result.detailsInput.value,
     });
@@ -103,7 +103,7 @@ function createAddPlacePopup(popupEl) {
   result.formEl = result.popupEl.querySelector('.add-place-form');
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    result.submitEventHandler?.({
+    result.onSubmit?.({
       name: result.nameInput.value,
       link: result.linkInput.value,
     });
@@ -146,28 +146,53 @@ function createViewPlacePopup(popupEl) {
   return result;
 }
 
+function createPlace(placeEl) {
+  const result = {};
+  result.placeEl = placeEl;
+  result.imageEl = result.placeEl.querySelector('.place__image');
+  result.captionEl = result.placeEl.querySelector('.place__caption');
+  result.likeEl = result.placeEl.querySelector('.place__like');
+  result.deleteEl = result.placeEl.querySelector('.place__delete');
+
+  result.imageEl.addEventListener('click', () => result.onImageClick?.());
+  result.likeEl.addEventListener('click', () => result.onLikePlace?.());
+  result.deleteEl.addEventListener('click', () => result.onDeletePlace?.());  
+
+  result.bind = ({ name, link }) => {
+    result.imageEl.src = link;
+    result.captionEl.textContent = name;
+  };
+  result.toggleLike = () => {
+    result.likeEl.classList.toggle('place__like_active');
+  };
+
+  return result;
+}
+
 const editProfilePopup = createEditProfilePopup(document.querySelector('.popup_type_edit-profile'));
 const profileSection = createProfileSection(document.querySelector('.profile'));
 const addPlacePopup = createAddPlacePopup(document.querySelector('.popup_type_add-place'));
 const viewPlacePopup = createViewPlacePopup(document.querySelector('.popup_type_view-place'));
 
-profileSection.editProfileEventHandler = ({ name, details }) => {
+profileSection.onEditProfile = ({ name, details }) => {
   editProfilePopup.show({ name, details });
 }
-profileSection.addPlaceEventHandler = () => {
+profileSection.onAddPlace = () => {
   addPlacePopup.show();
 }
 
-editProfilePopup.submitEventHandler = ({ name, details }) => {
+editProfilePopup.onSubmit = ({ name, details }) => {
   profileSection.updateProfileElements({ name, details });
 };
 
-addPlacePopup.submitEventHandler = ({ name, link }) => {
-  placesListEl.prepend(renderPlaceEl({ name, link }));
+addPlacePopup.onSubmit = ({ name, link }) => {
+  const placesListItem = createPlacesListItemFromTemplateEl({ name, link });
+  placesListEl.prepend(placesListItem.placesListItemEl);
 }
 
-let placeTemplate = document.querySelector('#places-list-item-template').content;
-let placesListEl = document.querySelector('.places-list');
+const placesListItemTemplate = document.querySelector('#places-list-item-template').content.querySelector('.places-list__item');
+const placeTemplate = document.querySelector('#place-template').content.querySelector('.place');
+const placesListEl = document.querySelector('.places-list');
 
 const initialCards = [
   {
@@ -196,35 +221,33 @@ const initialCards = [
   }
 ];
 
-function renderPlaceEl({ name, link }) {
-  function likePlaceClickHandler(evt) {
-    evt.target.classList.toggle('place__like_active');
-  }
-  
-  function deletePlaceClickHandler(evt) {
-    evt.target.closest('.places-list__item').remove();
-  }
-  
-  function imageClickHandler(evt) {
-    const placeCaptionEl = evt.target.closest('.place').querySelector(`.${BEM_PLACE__CAPTION}`);
-    viewPlacePopup.show({
-      caption: placeCaptionEl.textContent,
-      link: evt.target.src
+function createPlacesListItemFromTemplateEl(card) {
+  const result = {};
+  const placesListItemEl = placesListItemTemplate.cloneNode(true);
+  result.placesListItemEl = placesListItemEl;
+
+  const placeEl = placeTemplate.cloneNode(true);
+  placesListItemEl.append(placeEl);
+
+  const place = createPlace(placeEl);
+  place.onLikePlace = () => place.toggleLike();
+  place.onDeletePlace = () => placesListItemEl.remove();
+  place.onImageClick = () => {
+    viewPlacePopup.show({ // TODO: remove reference to global variable
+      caption: place.captionEl.textContent,
+      link: place.imageEl.src,
     });
   }
-  
-  const placeEl = placeTemplate.cloneNode(true);
-  const imageEl = placeEl.querySelector('.place__image');
-  imageEl.src = link;
-  imageEl.addEventListener('click', imageClickHandler);
-  placeEl.querySelector(`.${BEM_PLACE__CAPTION}`).textContent = name;
-  placeEl.querySelector('.place__like').addEventListener('click', likePlaceClickHandler);
-  placeEl.querySelector('.place__delete').addEventListener('click', deletePlaceClickHandler);  
-  return placeEl;
+  place.bind(card);
+
+  return result;
 }
 
 function renderPlacesList(cards) {
-  cards.forEach(card => placesListEl.append(renderPlaceEl(card)));
+  cards.forEach(card => {
+    const placesListItem = createPlacesListItemFromTemplateEl(card);
+    placesListEl.append(placesListItem.placesListItemEl);
+  });
 }
 
 document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
