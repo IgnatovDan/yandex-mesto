@@ -46,8 +46,10 @@ function createProfileSection(sectionEl) {
   result.editEl = sectionEl.querySelector('.profile__edit');
   result.editEl.addEventListener('click', () => {
     result.onEditProfile?.({
-      name: result.nameEl.textContent,
-      details: result.detailsEl.textContent,
+      values: {
+        name: result.nameEl.textContent,
+        details: result.detailsEl.textContent,
+      }
     });
   });
 
@@ -56,7 +58,7 @@ function createProfileSection(sectionEl) {
     result.onAddPlace?.();
   });
 
-  result.setProfileValues = ({ name, details }) => {
+  result.renderProfileValues = ({ name, details }) => {
     result.nameEl.textContent = name;
     result.detailsEl.textContent = details;
   };
@@ -77,8 +79,10 @@ function createEditProfilePopup(popupEl) {
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
     result.onSubmit?.({
-      name: result.nameInput.value,
-      details: result.detailsInput.value,
+      values: {
+        name: result.nameInput.value,
+        details: result.detailsInput.value,
+      }
     });
     result.popup.hide();
   });
@@ -104,8 +108,10 @@ function createAddPlacePopup(popupEl) {
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
     result.onSubmit?.({
-      name: result.nameInput.value,
-      link: result.linkInput.value,
+      values: {
+        name: result.nameInput.value,
+        link: result.linkInput.value,
+      }
     });
     result.popup.hide();
   });
@@ -151,11 +157,11 @@ function createPlace(placeEl) {
   result.likeEl = result.placeEl.querySelector('.place__like');
   result.deleteEl = result.placeEl.querySelector('.place__delete');
 
-  result.imageEl.addEventListener('click', () => result.onShowDetails?.({ place: result, values: result.getPlaceValues() }));
-  result.likeEl.addEventListener('click', () => result.onLikePlace?.({ place: result, values: result.getPlaceValues() }));
-  result.deleteEl.addEventListener('click', () => result.onDeletePlace?.({ place: result }));
+  result.imageEl.addEventListener('click', () => result.onShowDetails?.({ values: result.getPlaceValues() }));
+  result.likeEl.addEventListener('click', () => result.onLikePlace?.({ values: result.getPlaceValues() }));
+  result.deleteEl.addEventListener('click', () => result.onDeletePlace?.());
 
-  result.setPlaceValues = ({ name, link, like }) => {
+  result.renderPlaceValues = ({ name, link, like }) => {
     result.imageEl.src = link;
     result.captionEl.textContent = name;
     result.likeEl.classList.toggle('place__like_active', !!like);
@@ -185,17 +191,17 @@ function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate 
     placesListItemEl.append(placeEl);
 
     const place = createPlace(placeEl);
-    place.onLikePlace = (evt) => evt.place.setPlaceValues({ ...evt.values, like: !evt.values.like });
+    place.onLikePlace = (evt) => evt.place.renderPlaceValues({ ...evt.values, like: !evt.values.like });
     place.onDeletePlace = () => placesListItemEl.remove();
-    place.onShowDetails = (evt) => result.onShowPlaceDetails?.({ name: evt.values.name, link: evt.values.link });
-    place.setPlaceValues({ name, link });
+    place.onShowDetails = (evt) => result.onShowPlaceDetails?.({ values: { ...evt.values } });
+    place.renderPlaceValues({ name, link });
 
     return result;
   };
 
   result.createItemFromTemplate = ({ name, link }) => {
     const placesListItem = result.createPlacesListItemFromTemplateEl({ name, link });
-    placesListItem.onShowPlaceDetails = ({ name, link }) => result.onShowPlaceDetails?.({ name, link });
+    placesListItem.onShowPlaceDetails = (evt) => result.onShowPlaceDetails?.({ values: { ...evt.values } });
     return placesListItem;
   };
 
@@ -223,23 +229,23 @@ const addPlacePopup = createAddPlacePopup(document.querySelector('.popup_type_ad
 const viewPlacePopup = createViewPlacePopup(document.querySelector('.popup_type_view-place'));
 const placesList = createPlacesList(document.querySelector('.places-list'), { placesListItemTemplate, placeTemplate });
 
-profileSection.onEditProfile = ({ name, details }) => {
-  editProfilePopup.show({ name, details });
+profileSection.onEditProfile = (evt) => {
+  editProfilePopup.show({ ...evt.values });
 }
 
 profileSection.onAddPlace = () => {
   addPlacePopup.show();
 }
 
-editProfilePopup.onSubmit = ({ name, details }) => {
-  profileSection.setProfileValues({ name, details });
+editProfilePopup.onSubmit = (evt) => {
+  profileSection.renderProfileValues({ ...evt.values });
 };
 
-addPlacePopup.onSubmit = ({ name, link }) => {
-  placesList.addPlace({ name, link });
+addPlacePopup.onSubmit = (evt) => {
+  placesList.addPlace({ ...evt.values });
 }
 
-placesList.onShowPlaceDetails = ({ name, link }) => viewPlacePopup.show({ caption: name, link: link });
+placesList.onShowPlaceDetails = (evt) => viewPlacePopup.show({ caption: evt.values.name, link: evt.values.link });
 
 const initialCards = [
   {
