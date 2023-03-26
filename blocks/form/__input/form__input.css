@@ -30,6 +30,11 @@
 }
 
 .form__input_initial-state:invalid {
+  border-bottom-color: rgba(0, 0, 0, .2);
+}
+
+.form__input_initial-state:invalid:focus {
+  outline: none;
   border-bottom-color: rgba(0, 0, 0);
 }
 
