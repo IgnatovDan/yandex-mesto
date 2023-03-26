@@ -1,5 +1,5 @@
 .popup {
-  --fade-in-out-time: 500ms;
+  --fade-in-out-time: 200ms;
 
   position: fixed;
   /* 0? 9999 ? */

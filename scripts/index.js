@@ -19,6 +19,7 @@ function createPopup(popupEl) {
   result.popupCloseEl.addEventListener('click', (evt) => {
     // clear form/elements values ???
     // result.closingEvent?.();
+    result.onHiding?.();
     result.hide(popupEl);
   });
 
@@ -93,6 +94,12 @@ function createEditProfilePopup(popupEl) {
     result.popup.show();
   }
 
+  result.popup.onHiding = () => {
+    result.formEl.querySelectorAll('.form__input').forEach((inputEl) => {
+      inputEl.value = '';
+    });
+  }
+
   return result;
 }
 
@@ -129,6 +136,12 @@ function createAddPlacePopup(popupEl) {
     result.popup.show();
   }
 
+  result.popup.onHiding = () => {
+    result.formEl.querySelectorAll('.form__input').forEach((inputEl) => {
+      inputEl.value = '';
+    });
+  }
+
   return result;
 }
 
@@ -145,6 +158,13 @@ function createViewPlacePopup(popupEl) {
     result.captionEl.textContent = caption;
     result.popup.show();
   };
+
+  result.popup.onHiding = () => {
+    // Clear src to avoid previous image flick when popup is being shown: old image is painted for a short time
+    result.imageEl.src = '';
+    // Clear caption in addition (for security reason?)
+    result.captionEl.textContent = caption;
+  }
 
   return result;
 }
