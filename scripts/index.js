@@ -284,7 +284,7 @@ document.querySelectorAll('.form__input-group').forEach((inputGroupEl) => {
   inputEl.addEventListener('input', (evt) => {
     inputEl.classList.remove(BEM_FORM__INPUT_INITIAL_STATE);
     if (evt.target.validity.valid) {
-      validationMessageEl.textContent = ''; // empty content sets 0px height and element is not visible
+      validationMessageEl.textContent = '';
       inputEl.classList.remove(BEM_FORM__INPUT_INVALID_MODIFIER);
     }
     else {

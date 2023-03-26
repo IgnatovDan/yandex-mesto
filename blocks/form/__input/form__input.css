@@ -20,6 +20,11 @@
   transition: border-bottom-color 0.3s ease-in-out;
 }
 
+
+.form__input::placeholder {
+  color: #C4C4C4;
+}
+
 .form__input:focus {
   outline: none;
   border-bottom-color: rgba(0, 0, 0);
