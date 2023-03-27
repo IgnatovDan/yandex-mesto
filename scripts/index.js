@@ -113,6 +113,7 @@ function createEditProfilePopup(popupEl) {
       inputInvalidClass: BEM_FORM__INPUT_INVALID_MODIFIER,
     });
     result.popup.show();
+    result.nameInput.focus();
   }
 
   result.popup.onHiding = () => {
@@ -159,6 +160,7 @@ function createAddPlacePopup(popupEl) {
     });
 
     result.popup.show();
+    result.nameInput.focus();
   }
 
   result.popup.onHiding = () => {
