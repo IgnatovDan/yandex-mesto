@@ -1,5 +1,64 @@
-const BEM_FORM__INPUT_INITIAL_STATE_MODIFIER = 'form__input_initial-state';
-const BEM_FORM__INPUT_VALIDATION_MESSAGE = 'form__input-validation-message';
+const BEM_FORM__INPUT_WITH_MESSAGE = 'form__input-with-message';
+const BEM_FORM__INPUT_MESSAGE = 'form__input-message';
+const BEM_FORM__INPUT_INVALID_MODIFIER = 'form__input_invalid';
+
+function createFormValidation({ formEl, submitButtonEl, inputWithMessageClass, inputMessageClass, inputInvalidClass }) {
+  const result = {
+    formEl, submitButtonEl, inputWithMessageClass, inputMessageClass, inputInvalidClass
+  };
+
+  result.inputWithMessageList = Array.from(result.formEl.querySelectorAll(`.${inputWithMessageClass}`)).map(
+    (itemEl) => {
+      return { inputEl: itemEl.querySelector('input'), messageEl: itemEl.querySelector(`.${inputMessageClass}`) };
+    }
+  );
+
+  result._refreshFormSubmit = () => {
+    // Or: hasInvalidInput = !!formEl.querySelector('input:invalid');
+    const hasInvalidInput = !!result.formEl.querySelectorAll(`input:invalid`).length;
+    result.submitButtonEl.classList.toggle('form__save_disabled', hasInvalidInput);
+    result.submitButtonEl.disabled = hasInvalidInput;
+  }
+
+  result._inputHandler = (evt) => {
+    result._refreshFormSubmit();
+    const messageEl = evt.target.closest(`.${inputWithMessageClass}`).querySelector(`.${inputMessageClass}`);
+    if (evt.target.validity.valid) {
+      messageEl.textContent = '';
+      evt.target.classList.remove(inputInvalidClass);
+    }
+    else {
+      // can be better: implement smooth show/hide similar to popup show/hide
+      messageEl.textContent = evt.target.validationMessage;
+      evt.target.classList.add(inputInvalidClass);
+    }
+  };
+
+  result.dispose = () => {
+    result.inputWithMessageList?.forEach((item) => {
+      item.inputEl.removeEventListener('input', result._inputHandler);
+      item.messageEl.textContent = '';
+    });
+    result.inputWithMessageList = [];
+    result.formEl = null;
+    result.submitButtonEl = null;
+  };
+
+  result._refreshFormSubmit();
+
+  result.inputWithMessageList.forEach((item) => {
+    item.messageEl.content = '';
+    item.inputEl.classList.remove(inputInvalidClass);
+
+    // Or, use event bubble: inputGroupEl.addEventListener('input', (evt) => {
+    // I prefer subscribing to the exactly target element
+    // Note: If value is changed from js code then 'input' event doesn't occur
+    // and the 'form__input:invalid' is updated for 'valueMissing' and NOT updated for 'tooShort'
+    item.inputEl.addEventListener('input', result._inputHandler);
+  });
+
+  return result;
+}
 
 function createPopup(popupEl) {
   const BEM_POPUP_OPENED = 'popup_opened';
@@ -9,15 +68,17 @@ function createPopup(popupEl) {
   result.popupCloseEl = result.popupEl.querySelector('.popup__close');
 
   result.hide = () => {
+    result.onHiding?.();
+    document.removeEventListener('keydown', result.keydownEscapeHandler);
     result.popupEl.classList.remove(BEM_POPUP_OPENED);
   };
 
   result.show = () => {
     result.popupEl.classList.add(BEM_POPUP_OPENED);
+    document.addEventListener('keydown', result.keydownEscapeHandler);
   };
 
   result.popupCloseEl.addEventListener('click', (evt) => {
-    result.onHiding?.();
     result.hide(popupEl);
   });
 
@@ -26,6 +87,12 @@ function createPopup(popupEl) {
       result.hide();
     }
   });
+
+  result.keydownEscapeHandler = (evt) => {
+    if (evt.key.toLowerCase() === 'escape') {
+      result.hide();
+    }
+  };
 
   function removePopupPageIsLoadingState() {
     // Initially hide popup to avoid flicks on page loading when CSS files are not yet loaded
@@ -78,6 +145,7 @@ function createEditProfilePopup(popupEl) {
   result.popup = createPopup(popupEl);
 
   result.formEl = result.popupEl.querySelector('.profile-form');
+  result.submitButtonEl = result.popupEl.querySelector('.form__save');
   result.nameInput = result.formEl.querySelector('.profile-form__input_name');
   result.detailsInput = result.formEl.querySelector('.profile-form__input_details');
 
@@ -95,13 +163,20 @@ function createEditProfilePopup(popupEl) {
   result.show = ({ name, details }) => {
     result.nameInput.value = name;
     result.detailsInput.value = details;
+    result.formValidation = createFormValidation({
+      formEl: result.formEl,
+      submitButtonEl: result.submitButtonEl,
+      inputWithMessageClass: BEM_FORM__INPUT_WITH_MESSAGE,
+      inputMessageClass: BEM_FORM__INPUT_MESSAGE,
+      inputInvalidClass: BEM_FORM__INPUT_INVALID_MODIFIER,
+    });
     result.popup.show();
   }
 
   result.popup.onHiding = () => {
-    result.formEl.querySelectorAll('.form__input').forEach((inputEl) => {
-      inputEl.value = '';
-    });
+    result.formValidation.dispose();
+    result.formValidation = null;
+    result.formEl.reset();
   }
 
   return result;
@@ -113,6 +188,7 @@ function createAddPlacePopup(popupEl) {
   result.popup = createPopup(popupEl);
 
   result.formEl = result.popupEl.querySelector('.add-place-form');
+  result.submitButtonEl = result.popupEl.querySelector('.form__save');
   result.nameInput = result.formEl.querySelector('.add-place-form__input_name');
   result.linkInput = result.formEl.querySelector('.add-place-form__input_link');
 
@@ -128,22 +204,25 @@ function createAddPlacePopup(popupEl) {
   });
 
   result.show = () => {
-    result.formEl.querySelectorAll('.form__input').forEach((inputEl) => {
-      inputEl.value = '';
-      inputEl.classList.add(BEM_FORM__INPUT_INITIAL_STATE_MODIFIER);
-    });
-
-    result.formEl.querySelectorAll(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`).forEach((messageEl) => {
-      messageEl.content = '';
+    // Figma project requires hidden validation messages when form is opened.
+    // Submit button should be disabled when form is opened.
+    result.nameInput.value = '';
+    result.linkInput.value = '';
+    result.formValidation = createFormValidation({
+      formEl: result.formEl,
+      submitButtonEl: result.submitButtonEl,
+      inputWithMessageClass: BEM_FORM__INPUT_WITH_MESSAGE,
+      inputMessageClass: BEM_FORM__INPUT_MESSAGE,
+      inputInvalidClass: BEM_FORM__INPUT_INVALID_MODIFIER,
     });
 
     result.popup.show();
   }
 
   result.popup.onHiding = () => {
-    result.formEl.querySelectorAll('.form__input').forEach((inputEl) => {
-      inputEl.value = '';
-    });
+    result.formValidation.dispose();
+    result.formValidation = null;
+    result.formEl.reset();
   }
 
   return result;
@@ -297,38 +376,5 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-function refreshFormSubmit(inputElements, submitEl) {
-  const hasInvalidInput = inputElements.some((input) => !input.validity.valid);
-  // can be slow in complex forms: !!formEl.querySelector('input:invalid');
-  submitEl?.classList.toggle('form__save_disabled', hasInvalidInput);
-}
-
-document.querySelectorAll('.form').forEach((formEl) => {
-  const submitEl = formEl.querySelector('.form__save');
-  const inputElements = Array.from(formEl.querySelectorAll('.form__input'));
-  formEl.querySelectorAll('.form__input-with-message').forEach((inputGroupEl) => {
-    const BEM_FORM__INPUT_INVALID_MODIFIER = 'form__input_invalid';
-
-    const validationMessageEl = inputGroupEl.querySelector(`.${BEM_FORM__INPUT_VALIDATION_MESSAGE}`);
-    const inputEl = inputGroupEl.querySelector('.form__input');
-    refreshFormSubmit(inputElements, submitEl);
-
-    // Or, use event bubble: inputGroupEl.addEventListener('input', (evt) => {
-    inputEl.addEventListener('input', (evt) => {
-      inputEl.classList.remove(BEM_FORM__INPUT_INITIAL_STATE_MODIFIER);
-      refreshFormSubmit(inputElements, submitEl);
-      if (evt.target.validity.valid) {
-        validationMessageEl.textContent = '';
-        inputEl.classList.remove(BEM_FORM__INPUT_INVALID_MODIFIER);
-      }
-      else {
-        // can be better: implement smooth show/hide similar to popup show/hide
-        validationMessageEl.textContent = evt.target.validationMessage;
-        inputEl.classList.add(BEM_FORM__INPUT_INVALID_MODIFIER);
-      }
-    });
-  });
-});
 
 placesList.showPlaces(initialCards);

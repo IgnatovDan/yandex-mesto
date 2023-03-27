@@ -1,4 +1,4 @@
-.form__input-validation-message {
+.form__input-message {
   /* ? set max to single line, show ellipsis for long texts ? */
   margin: 0;
   min-height: 30px;
