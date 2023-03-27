@@ -87,9 +87,9 @@ function createProfileSection(sectionEl) {
 function createEditProfilePopup(popupEl) {
   const result = { popupEl };
 
-  result.formEl = result.popupEl.querySelector('.profile-form');
-  result.nameInput = result.formEl.querySelector('.profile-form__input_name');
-  result.detailsInput = result.formEl.querySelector('.profile-form__input_details');
+  result.formEl = result.popupEl.querySelector('.form');
+  result.nameInput = result.formEl.querySelector('.form__input_type_name');
+  result.detailsInput = result.formEl.querySelector('.form__input_type_details');
 
   result.popup = createPopup(popupEl);
   result.formValidation = createFormValidation({ ...validationOptions, formEl: result.formEl });
@@ -124,9 +124,9 @@ function createEditProfilePopup(popupEl) {
 function createAddPlacePopup(popupEl) {
   const result = { popupEl };
 
-  result.formEl = result.popupEl.querySelector('.add-place-form');
-  result.nameInput = result.formEl.querySelector('.add-place-form__input_name');
-  result.linkInput = result.formEl.querySelector('.add-place-form__input_link');
+  result.formEl = result.popupEl.querySelector('.form');
+  result.nameInput = result.formEl.querySelector('.form__input_type_name');
+  result.linkInput = result.formEl.querySelector('.form__input_type_link');
 
   result.popup = createPopup(popupEl);
   result.formValidation = createFormValidation({ ...validationOptions, formEl: result.formEl });

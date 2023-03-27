@@ -11,7 +11,6 @@ function createFormValidation({ formEl, submitButtonClass, inputWithMessageClass
   );
 
   result._refreshFormSubmit = () => {
-    // Or: hasInvalidInput = !!formEl.querySelector('input:invalid');
     const hasInvalidInput = !!result.formEl.querySelectorAll(`input:invalid`).length;
     result.submitButtonEl.classList.toggle('form__save_disabled', hasInvalidInput);
     result.submitButtonEl.disabled = hasInvalidInput;
@@ -35,6 +34,7 @@ function createFormValidation({ formEl, submitButtonClass, inputWithMessageClass
   result.resetValidationState = () => {
     result.inputWithMessageList?.forEach((item) => {
       item.messageEl.textContent = '';
+      item.inputEl.classList.remove(inputInvalidClass);
     });
     result._refreshFormSubmit();
   };
