@@ -1,12 +1,15 @@
-const BEM_FORM__INPUT_WITH_MESSAGE = 'form__input-with-message';
-const BEM_FORM__INPUT_MESSAGE = 'form__input-message';
-const BEM_FORM__INPUT_INVALID_MODIFIER = 'form__input_invalid';
+const validationOptions = {
+  submitButtonClass: 'form__save',
+  inputWithMessageClass: 'form__input-with-message',
+  inputMessageClass: 'form__input-message',
+  inputInvalidClass: 'form__input_invalid',
+};
 
 function createPopup(popupEl) {
   const BEM_POPUP_OPENED = 'popup_opened';
 
-  const result = {};
-  result.popupEl = popupEl;
+  const result = { popupEl };
+
   result.popupCloseEl = result.popupEl.querySelector('.popup__close');
 
   result.hide = () => {
@@ -53,11 +56,13 @@ function createPopup(popupEl) {
 }
 
 function createProfileSection(sectionEl) {
-  const result = {};
+  const result = { sectionEl };
+
   result.nameEl = sectionEl.querySelector('.profile__name');
   result.detailsEl = sectionEl.querySelector('.profile__details');
-
   result.editEl = sectionEl.querySelector('.profile__edit');
+  result.addPlaceEl = sectionEl.querySelector('.profile__add');
+
   result.editEl.addEventListener('click', () => {
     result.onEditProfile?.({
       values: {
@@ -67,7 +72,6 @@ function createProfileSection(sectionEl) {
     });
   });
 
-  result.addPlaceEl = sectionEl.querySelector('.profile__add');
   result.addPlaceEl.addEventListener('click', () => {
     result.onAddPlace?.();
   });
@@ -81,15 +85,14 @@ function createProfileSection(sectionEl) {
 }
 
 function createEditProfilePopup(popupEl) {
-  const result = {};
-
-  result.popupEl = popupEl;
-  result.popup = createPopup(popupEl);
+  const result = { popupEl };
 
   result.formEl = result.popupEl.querySelector('.profile-form');
-  result.submitButtonEl = result.popupEl.querySelector('.form__save');
   result.nameInput = result.formEl.querySelector('.profile-form__input_name');
   result.detailsInput = result.formEl.querySelector('.profile-form__input_details');
+
+  result.popup = createPopup(popupEl);
+  result.formValidation = createFormValidation({ ...validationOptions, formEl: result.formEl });
 
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -105,20 +108,13 @@ function createEditProfilePopup(popupEl) {
   result.show = ({ name, details }) => {
     result.nameInput.value = name;
     result.detailsInput.value = details;
-    result.formValidation = createFormValidation({
-      formEl: result.formEl,
-      submitButtonEl: result.submitButtonEl,
-      inputWithMessageClass: BEM_FORM__INPUT_WITH_MESSAGE,
-      inputMessageClass: BEM_FORM__INPUT_MESSAGE,
-      inputInvalidClass: BEM_FORM__INPUT_INVALID_MODIFIER,
-    });
+    result.formValidation.resetValidationState();
     result.popup.show();
     result.nameInput.focus();
   }
 
   result.popup.onHiding = () => {
-    result.formValidation.dispose();
-    result.formValidation = null;
+    result.formValidation.resetValidationState();
     result.formEl.reset();
   }
 
@@ -126,14 +122,14 @@ function createEditProfilePopup(popupEl) {
 }
 
 function createAddPlacePopup(popupEl) {
-  const result = {};
-  result.popupEl = popupEl;
-  result.popup = createPopup(popupEl);
+  const result = { popupEl };
 
   result.formEl = result.popupEl.querySelector('.add-place-form');
-  result.submitButtonEl = result.popupEl.querySelector('.form__save');
   result.nameInput = result.formEl.querySelector('.add-place-form__input_name');
   result.linkInput = result.formEl.querySelector('.add-place-form__input_link');
+
+  result.popup = createPopup(popupEl);
+  result.formValidation = createFormValidation({ ...validationOptions, formEl: result.formEl });
 
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -147,25 +143,17 @@ function createAddPlacePopup(popupEl) {
   });
 
   result.show = () => {
-    // Figma project requires hidden validation messages when form is opened.
-    // Submit button should be disabled when form is opened.
     result.nameInput.value = '';
     result.linkInput.value = '';
-    result.formValidation = createFormValidation({
-      formEl: result.formEl,
-      submitButtonEl: result.submitButtonEl,
-      inputWithMessageClass: BEM_FORM__INPUT_WITH_MESSAGE,
-      inputMessageClass: BEM_FORM__INPUT_MESSAGE,
-      inputInvalidClass: BEM_FORM__INPUT_INVALID_MODIFIER,
-    });
-
+    // Figma project requires empty validation messages when popup is opened.
+    // And, the 'submit' button should be disabled when form is opened.
+    result.formValidation.resetValidationState();
     result.popup.show();
     result.nameInput.focus();
   }
 
   result.popup.onHiding = () => {
-    result.formValidation.dispose();
-    result.formValidation = null;
+    result.formValidation.resetValidationState();
     result.formEl.reset();
   }
 
@@ -173,12 +161,13 @@ function createAddPlacePopup(popupEl) {
 }
 
 function createViewPlacePopup(popupEl) {
-  const result = {};
-  result.popupEl = popupEl;
-  result.popup = createPopup(popupEl);
+  const result = { popupEl };
+
   result.viewPlaceEl = result.popupEl.querySelector('.view-place');
   result.imageEl = result.viewPlaceEl.querySelector('.view-place__image');
   result.captionEl = result.viewPlaceEl.querySelector('.view-place__caption');
+
+  result.popup = createPopup(popupEl);
 
   result.show = ({ caption, link }) => {
     result.imageEl.src = link;
@@ -197,8 +186,8 @@ function createViewPlacePopup(popupEl) {
 }
 
 function createPlace(placeEl) {
-  const result = {};
-  result.placeEl = placeEl;
+  const result = { placeEl };
+
   result.imageEl = result.placeEl.querySelector('.place__image');
   result.captionEl = result.placeEl.querySelector('.place__caption');
   result.likeEl = result.placeEl.querySelector('.place__like');
@@ -226,20 +215,18 @@ function createPlace(placeEl) {
 }
 
 function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate }) {
-  const result = {};
-  result.placesListEl = placesListEl;
+  const result = { placesListEl };
 
   result.createPlacesListItemFromTemplateEl = ({ name, link }) => {
     const result = {};
-    const placesListItemEl = placesListItemTemplate.cloneNode(true);
-    result.placesListItemEl = placesListItemEl;
+    result.placesListItemEl = placesListItemTemplate.cloneNode(true);
 
     const placeEl = placeTemplate.cloneNode(true);
-    placesListItemEl.append(placeEl);
+    result.placesListItemEl.append(placeEl);
 
     const place = createPlace(placeEl);
     place.onLikePlace = (evt) => evt.place.updatePlaceValues({ ...evt.values, like: !evt.values.like });
-    place.onDeletePlace = () => placesListItemEl.remove();
+    place.onDeletePlace = () => result.placesListItemEl.remove();
     place.onShowDetails = (evt) => result.onShowPlaceDetails?.({ values: { ...evt.values } });
     place.updatePlaceValues({ name, link });
 
@@ -252,7 +239,7 @@ function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate 
     return placesListItem;
   };
 
-  result.showPlaces = (places) => {
+  result.renderPlaces = (places) => {
     places.forEach(({ name, link }) => {
       const placesListItem = result.createItemFromTemplate({ name, link });
       result.placesListEl.append(placesListItem.placesListItemEl);
@@ -276,22 +263,10 @@ const addPlacePopup = createAddPlacePopup(document.querySelector('.popup_type_ad
 const viewPlacePopup = createViewPlacePopup(document.querySelector('.popup_type_view-place'));
 const placesList = createPlacesList(document.querySelector('.places-list'), { placesListItemTemplate, placeTemplate });
 
-profileSection.onEditProfile = (evt) => {
-  editProfilePopup.show({ ...evt.values });
-}
-
-profileSection.onAddPlace = () => {
-  addPlacePopup.show();
-}
-
-editProfilePopup.onSubmit = (evt) => {
-  profileSection.updateProfileValues({ ...evt.values });
-};
-
-addPlacePopup.onSubmit = (evt) => {
-  placesList.addPlace({ ...evt.values });
-}
-
+profileSection.onEditProfile = (evt) => editProfilePopup.show({ ...evt.values });
+profileSection.onAddPlace = () => addPlacePopup.show();
+editProfilePopup.onSubmit = (evt) => profileSection.updateProfileValues({ ...evt.values });
+addPlacePopup.onSubmit = (evt) => placesList.addPlace({ ...evt.values });
 placesList.onShowPlaceDetails = (evt) => viewPlacePopup.show({ caption: evt.values.name, link: evt.values.link });
 
 const initialCards = [
@@ -321,4 +296,4 @@ const initialCards = [
   }
 ];
 
-placesList.showPlaces(initialCards);
+placesList.renderPlaces(initialCards);

@@ -1,8 +1,9 @@
-function createFormValidation({ formEl, submitButtonEl, inputWithMessageClass, inputMessageClass, inputInvalidClass }) {
+function createFormValidation({ formEl, submitButtonClass, inputWithMessageClass, inputMessageClass, inputInvalidClass }) {
   const result = {
-    formEl, submitButtonEl, inputWithMessageClass, inputMessageClass, inputInvalidClass
+    formEl, inputWithMessageClass, inputMessageClass, inputInvalidClass
   };
 
+  result.submitButtonEl = result.formEl.querySelector(`.${submitButtonClass}`);
   result.inputWithMessageList = Array.from(result.formEl.querySelectorAll(`.${inputWithMessageClass}`)).map(
     (itemEl) => {
       return { inputEl: itemEl.querySelector('input'), messageEl: itemEl.querySelector(`.${inputMessageClass}`) };
@@ -20,7 +21,7 @@ function createFormValidation({ formEl, submitButtonEl, inputWithMessageClass, i
     result._refreshFormSubmit();
     const messageEl = evt.target.closest(`.${inputWithMessageClass}`).querySelector(`.${inputMessageClass}`);
     if (evt.target.validity.valid) {
-      // element.validity.valid is not updated only for empty/pattern rules if element.value is changed from js code
+      // element.validity.valid is updated only for empty/pattern rules if element.value is changed from js code
       messageEl.textContent = '';
       evt.target.classList.remove(inputInvalidClass);
     }
@@ -31,14 +32,11 @@ function createFormValidation({ formEl, submitButtonEl, inputWithMessageClass, i
     }
   };
 
-  result.dispose = () => {
+  result.resetValidationState = () => {
     result.inputWithMessageList?.forEach((item) => {
-      item.inputEl.removeEventListener('input', result._inputHandler);
       item.messageEl.textContent = '';
     });
-    result.inputWithMessageList = [];
-    result.formEl = null;
-    result.submitButtonEl = null;
+    result._refreshFormSubmit();
   };
 
   result._refreshFormSubmit();
@@ -47,8 +45,8 @@ function createFormValidation({ formEl, submitButtonEl, inputWithMessageClass, i
     item.messageEl.content = '';
     item.inputEl.classList.remove(inputInvalidClass);
 
-    // Or, use event bubble: inputGroupEl.addEventListener('input', (evt) => {
-    // I prefer subscribing to the exactly target element
+    // Or, use event bubble: formEl/inputGroupEl.addEventListener('input'
+    // I prefer subscribing exactly to the target element
     // Note: If value is changed from js code then 'input' event doesn't occur
     // and the 'form__input:invalid' is updated for 'valueMissing' and NOT updated for 'tooShort'
     item.inputEl.addEventListener('input', result._inputHandler);
