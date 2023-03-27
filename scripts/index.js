@@ -130,7 +130,7 @@ function createProfileSection(sectionEl) {
     result.onAddPlace?.();
   });
 
-  result.renderProfileValues = ({ name, details }) => {
+  result.updateProfileValues = ({ name, details }) => {
     result.nameEl.textContent = name;
     result.detailsEl.textContent = details;
   };
@@ -261,10 +261,10 @@ function createPlace(placeEl) {
   result.deleteEl = result.placeEl.querySelector('.place__delete');
 
   result.imageEl.addEventListener('click', () => result.onShowDetails?.({ values: result.getPlaceValues() }));
-  result.likeEl.addEventListener('click', () => result.onLikePlace?.({ values: result.getPlaceValues() }));
+  result.likeEl.addEventListener('click', () => result.onLikePlace?.({ place: result, values: result.getPlaceValues() }));
   result.deleteEl.addEventListener('click', () => result.onDeletePlace?.());
 
-  result.renderPlaceValues = ({ name, link, like }) => {
+  result.updatePlaceValues = ({ name, link, like }) => {
     result.imageEl.src = link;
     result.captionEl.textContent = name;
     result.likeEl.classList.toggle('place__like_active', !!like);
@@ -294,10 +294,10 @@ function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate 
     placesListItemEl.append(placeEl);
 
     const place = createPlace(placeEl);
-    place.onLikePlace = (evt) => evt.place.renderPlaceValues({ ...evt.values, like: !evt.values.like });
+    place.onLikePlace = (evt) => evt.place.updatePlaceValues({ ...evt.values, like: !evt.values.like });
     place.onDeletePlace = () => placesListItemEl.remove();
     place.onShowDetails = (evt) => result.onShowPlaceDetails?.({ values: { ...evt.values } });
-    place.renderPlaceValues({ name, link });
+    place.updatePlaceValues({ name, link });
 
     return result;
   };
@@ -341,7 +341,7 @@ profileSection.onAddPlace = () => {
 }
 
 editProfilePopup.onSubmit = (evt) => {
-  profileSection.renderProfileValues({ ...evt.values });
+  profileSection.updateProfileValues({ ...evt.values });
 };
 
 addPlacePopup.onSubmit = (evt) => {
