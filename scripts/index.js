@@ -207,7 +207,7 @@ function createPlace(placeEl) {
   result.likeEl = result.placeEl.querySelector('.place__like');
   result.deleteEl = result.placeEl.querySelector('.place__delete');
 
-  result.imageEl.addEventListener('click', () => result.onShowDetails?.({ values: result.getPlaceValues() }));
+  result.imageEl.addEventListener('click', () => result.onImageClick?.({ values: result.getPlaceValues() }));
   result.likeEl.addEventListener('click', () => result.onLikePlace?.({ place: result, values: result.getPlaceValues() }));
   result.deleteEl.addEventListener('click', () => result.onDeletePlace?.());
 
@@ -240,7 +240,7 @@ function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate 
     const place = createPlace(placeEl);
     place.onLikePlace = (evt) => evt.place.updatePlaceValues({ ...evt.values, like: !evt.values.like });
     place.onDeletePlace = () => result.placesListItemEl.remove();
-    place.onShowDetails = (evt) => result.onShowPlaceDetails?.({ values: { ...evt.values } });
+    place.onImageClick = (evt) => result.onImageClick?.({ values: { ...evt.values } });
     place.updatePlaceValues({ name, link });
 
     result.placesListItemEl.append(placeEl);
@@ -250,7 +250,7 @@ function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate 
 
   result.createItemFromTemplate = ({ name, link }) => {
     const placesListItem = result.createPlacesListItemFromTemplateEl({ name, link });
-    placesListItem.onShowPlaceDetails = (evt) => result.onShowPlaceDetails?.({ values: { ...evt.values } });
+    placesListItem.onImageClick = (evt) => result.onPlaceImageClick?.({ values: { ...evt.values } });
     return placesListItem;
   };
 
@@ -282,7 +282,7 @@ profileSection.onEditProfile = (evt) => editProfilePopup.show({ ...evt.values })
 profileSection.onAddPlace = () => addPlacePopup.show();
 editProfilePopup.onSubmit = (evt) => profileSection.updateProfileValues({ ...evt.values });
 addPlacePopup.onSubmit = (evt) => placesList.addPlace({ ...evt.values });
-placesList.onShowPlaceDetails = (evt) => viewPlacePopup.show({ caption: evt.values.name, link: evt.values.link });
+placesList.onPlaceImageClick = (evt) => viewPlacePopup.show({ caption: evt.values.name, link: evt.values.link });
 
 const initialCards = [
   {
