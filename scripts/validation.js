@@ -1,19 +1,22 @@
-function createFormValidation({ formEl, submitButtonClass, submitButtonDisabledClass, inputWithMessageClass, inputMessageClass, inputInvalidClass, }) {
+function createFormValidation(
+  // long list to explicitly declare required values similar to TS interface declaration
+  { formEl, submitButtonClass, submitButtonDisabledClass, inputWithMessageClass, inputMessageClass, inputInvalidClass }
+) {
   const result = {
-    formEl, inputWithMessageClass, inputMessageClass, inputInvalidClass
+    formEl, submitButtonClass, submitButtonDisabledClass, inputWithMessageClass, inputMessageClass, inputInvalidClass
   };
 
   result.submitButtonEl = result.formEl.querySelector(`.${submitButtonClass}`);
-  result.inputWithMessageList = Array.from(result.formEl.querySelectorAll(`.${inputWithMessageClass}`)).map(
+  result.inputWithMessageList = Array.from(result.formEl.querySelectorAll(`.${result.inputWithMessageClass}`)).map(
     (itemEl) => {
       // Or, I can find 'messageEl' by 'input.id': messageEl = itemEl.querySelector(`.${inputEl.id}-error`);
-      return { inputEl: itemEl.querySelector('input'), messageEl: itemEl.querySelector(`.${inputMessageClass}`) };
+      return { inputEl: itemEl.querySelector('input'), messageEl: itemEl.querySelector(`.${result.inputMessageClass}`) };
     }
   );
 
   result._refreshFormSubmit = () => {
     const hasInvalidInput = !!result.formEl.querySelectorAll(`input:invalid`).length;
-    result.submitButtonEl.classList.toggle(submitButtonDisabledClass, hasInvalidInput);
+    result.submitButtonEl.classList.toggle(result.submitButtonDisabledClass, hasInvalidInput);
     result.submitButtonEl.disabled = hasInvalidInput;
   };
 
@@ -22,18 +25,18 @@ function createFormValidation({ formEl, submitButtonClass, submitButtonDisabledC
     // if element.value is changed from js code
     if (!validationMessage) {
       messageEl.textContent = '';
-      inputEl.classList.remove(inputInvalidClass);
+      inputEl.classList.remove(result.inputInvalidClass);
     }
     else {
       // can be better: implement smooth show/hide similar to popup show/hide
       messageEl.textContent = validationMessage;
-      inputEl.classList.add(inputInvalidClass);
+      inputEl.classList.add(result.inputInvalidClass);
     }
   };
 
   result._inputHandler = (evt) => {
     result._refreshFormSubmit();
-    const messageEl = evt.target.closest(`.${inputWithMessageClass}`).querySelector(`.${inputMessageClass}`);
+    const messageEl = evt.target.closest(`.${result.inputWithMessageClass}`).querySelector(`.${result.inputMessageClass}`);
     result._setInputValidationState({ inputEl: evt.target, messageEl, validationMessage: evt.target.validationMessage });
   };
 
@@ -48,7 +51,7 @@ function createFormValidation({ formEl, submitButtonClass, submitButtonDisabledC
 
   result.inputWithMessageList.forEach((item) => {
     item.messageEl.content = '';
-    item.inputEl.classList.remove(inputInvalidClass);
+    item.inputEl.classList.remove(result.inputInvalidClass);
 
     // Or, use event bubble: formEl/inputGroupEl.addEventListener('input'
     // I prefer subscribing exactly to the target element
