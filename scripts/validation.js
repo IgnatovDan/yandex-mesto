@@ -6,6 +6,7 @@ function createFormValidation({ formEl, submitButtonClass, submitButtonDisabledC
   result.submitButtonEl = result.formEl.querySelector(`.${submitButtonClass}`);
   result.inputWithMessageList = Array.from(result.formEl.querySelectorAll(`.${inputWithMessageClass}`)).map(
     (itemEl) => {
+      // Or, I can find 'messageEl' by 'input.id': messageEl = itemEl.querySelector(`.${inputEl.id}-error`);
       return { inputEl: itemEl.querySelector('input'), messageEl: itemEl.querySelector(`.${inputMessageClass}`) };
     }
   );

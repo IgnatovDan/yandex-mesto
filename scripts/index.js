@@ -85,13 +85,15 @@ function createProfileSection(sectionEl) {
   return result;
 }
 
-function createPopupWithForm(popupEl) {
+function createPopupWithForm(popupEl, { validationOptions }) {
   const result = { popupEl };
 
   result.formEl = result.popupEl.querySelector('.form');
 
   result.popup = createPopup(popupEl);
-  result.formValidation = createFormValidation({ ...validationOptions, formEl: result.formEl });
+  if (validationOptions) {
+    result.formValidation = createFormValidation({ ...validationOptions, formEl: result.formEl });
+  }
 
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -103,22 +105,22 @@ function createPopupWithForm(popupEl) {
   result.show = () => {
     // Figma project requires empty validation messages when popup is opened.
     // And, the 'submit' button should be disabled when form is opened.
-    result.formValidation.resetValidationState();
+    result.formValidation?.resetValidationState();
     result.popup.show();
   }
 
   result.popup.onHiding = () => {
-    result.formValidation.resetValidationState();
+    result.formValidation?.resetValidationState();
     result.formEl.reset();
   }
 
   return result;
 }
 
-function createEditProfilePopup(popupEl) {
+function createEditProfilePopup(popupEl, options) {
   const result = { popupEl };
 
-  result.popupWithForm = createPopupWithForm(popupEl);
+  result.popupWithForm = createPopupWithForm(popupEl, options);
   result.nameInput = result.popupWithForm.formEl.querySelector('.form__input_type_name');
   result.detailsInput = result.popupWithForm.formEl.querySelector('.form__input_type_details');
 
@@ -141,10 +143,10 @@ function createEditProfilePopup(popupEl) {
   return result;
 }
 
-function createAddPlacePopup(popupEl) {
+function createAddPlacePopup(popupEl, options) {
   const result = { popupEl };
 
-  result.popupWithForm = createPopupWithForm(popupEl);
+  result.popupWithForm = createPopupWithForm(popupEl, options);
   result.nameInput = result.popupWithForm.formEl.querySelector('.form__input_type_name');
   result.linkInput = result.popupWithForm.formEl.querySelector('.form__input_type_link');
 
@@ -178,6 +180,7 @@ function createViewPlacePopup(popupEl) {
 
   result.show = ({ caption, link }) => {
     result.imageEl.src = link;
+    result.imageEl.alt = caption;
     result.captionEl.textContent = caption;
     result.popup.show();
   };
@@ -206,6 +209,7 @@ function createPlace(placeEl) {
 
   result.updatePlaceValues = ({ name, link, like }) => {
     result.imageEl.src = link;
+    result.imageEl.alt = name;
     result.captionEl.textContent = name;
     result.likeEl.classList.toggle('place__like_active', !!like);
   };
@@ -264,9 +268,9 @@ function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate 
 const placesListItemTemplate = document.querySelector('#places-list-item-template').content.querySelector('.places-list__item');
 const placeTemplate = document.querySelector('#place-template').content.querySelector('.place');
 
-const editProfilePopup = createEditProfilePopup(document.querySelector('.popup_type_edit-profile'));
+const editProfilePopup = createEditProfilePopup(document.querySelector('.popup_type_edit-profile'), { validationOptions });
 const profileSection = createProfileSection(document.querySelector('.profile'));
-const addPlacePopup = createAddPlacePopup(document.querySelector('.popup_type_add-place'));
+const addPlacePopup = createAddPlacePopup(document.querySelector('.popup_type_add-place'), { validationOptions });
 const viewPlacePopup = createViewPlacePopup(document.querySelector('.popup_type_view-place'));
 const placesList = createPlacesList(document.querySelector('.places-list'), { placesListItemTemplate, placeTemplate });
 
