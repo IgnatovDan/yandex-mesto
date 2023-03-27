@@ -99,7 +99,9 @@ function createPopupWithForm(popupEl, { validationOptions }) {
     evt.preventDefault();
     result.onSubmit?.();
     result.popup.hide();
-    result.formEl.reset();
+    // clear input values after data entering is finished
+    // entered values should not be shown when form is shown next time
+    result.formEl.reset(); // ??? why shouldn't reset form ???
   });
 
   result.show = () => {
@@ -111,7 +113,9 @@ function createPopupWithForm(popupEl, { validationOptions }) {
 
   result.popup.onHiding = () => {
     result.formValidation?.resetValidationState();
-    result.formEl.reset();
+    // clear input values after data entering is finished
+    // entered values should not be shown when form is shown next time
+    result.formEl.reset(); // ??? why shouldn't reset form ???
   }
 
   return result;
