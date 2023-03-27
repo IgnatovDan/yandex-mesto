@@ -14,27 +14,31 @@ function createFormValidation({ formEl, submitButtonClass, inputWithMessageClass
     const hasInvalidInput = !!result.formEl.querySelectorAll(`input:invalid`).length;
     result.submitButtonEl.classList.toggle('form__save_disabled', hasInvalidInput);
     result.submitButtonEl.disabled = hasInvalidInput;
-  }
+  };
+
+  result._setInputValidationState = ({ inputEl, messageEl, validationMessage }) => {
+    // Note: element.validity.valid/validationMessage are updated only for empty/pattern rules
+    // if element.value is changed from js code
+    if (!validationMessage) {
+      messageEl.textContent = '';
+      inputEl.classList.remove(inputInvalidClass);
+    }
+    else {
+      // can be better: implement smooth show/hide similar to popup show/hide
+      messageEl.textContent = validationMessage;
+      inputEl.classList.add(inputInvalidClass);
+    }
+  };
 
   result._inputHandler = (evt) => {
     result._refreshFormSubmit();
     const messageEl = evt.target.closest(`.${inputWithMessageClass}`).querySelector(`.${inputMessageClass}`);
-    if (evt.target.validity.valid) {
-      // element.validity.valid is updated only for empty/pattern rules if element.value is changed from js code
-      messageEl.textContent = '';
-      evt.target.classList.remove(inputInvalidClass);
-    }
-    else {
-      // can be better: implement smooth show/hide similar to popup show/hide
-      messageEl.textContent = evt.target.validationMessage;
-      evt.target.classList.add(inputInvalidClass);
-    }
+    result._setInputValidationState({ inputEl: evt.target, messageEl, validationMessage: evt.target.validationMessage });
   };
 
   result.resetValidationState = () => {
     result.inputWithMessageList?.forEach((item) => {
-      item.messageEl.textContent = '';
-      item.inputEl.classList.remove(inputInvalidClass);
+      result._setInputValidationState({ inputEl: item.inputEl, messageEl: item.messageEl, validationMessage: '' });
     });
     result._refreshFormSubmit();
   };
