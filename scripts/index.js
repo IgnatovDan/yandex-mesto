@@ -1,5 +1,6 @@
 const validationOptions = {
   submitButtonClass: 'form__save',
+  submitButtonDisabledClass: 'form__save_disabled',
   inputWithMessageClass: 'form__input-with-message',
   inputMessageClass: 'form__input-message',
   inputInvalidClass: 'form__input_invalid',

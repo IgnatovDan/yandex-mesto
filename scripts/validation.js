@@ -1,4 +1,4 @@
-function createFormValidation({ formEl, submitButtonClass, inputWithMessageClass, inputMessageClass, inputInvalidClass }) {
+function createFormValidation({ formEl, submitButtonClass, submitButtonDisabledClass, inputWithMessageClass, inputMessageClass, inputInvalidClass, }) {
   const result = {
     formEl, inputWithMessageClass, inputMessageClass, inputInvalidClass
   };
@@ -12,7 +12,7 @@ function createFormValidation({ formEl, submitButtonClass, inputWithMessageClass
 
   result._refreshFormSubmit = () => {
     const hasInvalidInput = !!result.formEl.querySelectorAll(`input:invalid`).length;
-    result.submitButtonEl.classList.toggle('form__save_disabled', hasInvalidInput);
+    result.submitButtonEl.classList.toggle(submitButtonDisabledClass, hasInvalidInput);
     result.submitButtonEl.disabled = hasInvalidInput;
   };
 
