@@ -20,8 +20,8 @@ Figma design files:
   - Stage "2" (view/edit cards, smooth popups)
     - Github branch: https://github.com/IgnatovDan/yandex-mesto/tree/p5
     - Figma design file: https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5
-  - Stage "3" (validation) -- **Current**
-    - Github branch: https://github.com/IgnatovDan/yandex-mesto/tree/dev-p6
+  - Stage "3" (validation)
+    - Github branch: https://github.com/IgnatovDan/yandex-mesto/tree/p6
     - Figma design file: https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6
 ---
 ### Used technologies
