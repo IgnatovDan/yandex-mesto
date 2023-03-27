@@ -31,4 +31,5 @@
   transition: opacity var(--fade-in-out-time), visibility 0s linear var(--fade-in-out-time);
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 }
