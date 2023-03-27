@@ -15,6 +15,7 @@ function createFormValidation(
   );
 
   result._refreshFormSubmit = () => {
+    // 'element.validity.valid' is same as 'input:invalid'
     const hasInvalidInput = !!result.formEl.querySelectorAll(`input:invalid`).length;
     result.submitButtonEl.classList.toggle(result.submitButtonDisabledClass, hasInvalidInput);
     result.submitButtonEl.disabled = hasInvalidInput;
@@ -37,6 +38,8 @@ function createFormValidation(
   result._inputHandler = (evt) => {
     result._refreshFormSubmit();
     const messageEl = evt.target.closest(`.${result.inputWithMessageClass}`).querySelector(`.${result.inputMessageClass}`);
+    // element.validationMessage is synchronized with element.validity.valid:
+    // https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#the_constraint_validation_api
     result._setInputValidationState({ inputEl: evt.target, messageEl, validationMessage: evt.target.validationMessage });
   };
 
