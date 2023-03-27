@@ -85,33 +85,26 @@ function createProfileSection(sectionEl) {
   return result;
 }
 
-function createEditProfilePopup(popupEl) {
+function createPopupWithForm(popupEl) {
   const result = { popupEl };
 
   result.formEl = result.popupEl.querySelector('.form');
-  result.nameInput = result.formEl.querySelector('.form__input_type_name');
-  result.detailsInput = result.formEl.querySelector('.form__input_type_details');
 
   result.popup = createPopup(popupEl);
   result.formValidation = createFormValidation({ ...validationOptions, formEl: result.formEl });
 
   result.formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    result.onSubmit?.({
-      values: {
-        name: result.nameInput.value,
-        details: result.detailsInput.value,
-      }
-    });
+    result.onSubmit?.();
     result.popup.hide();
+    result.formEl.reset();
   });
 
-  result.show = ({ name, details }) => {
-    result.nameInput.value = name;
-    result.detailsInput.value = details;
+  result.show = () => {
+    // Figma project requires empty validation messages when popup is opened.
+    // And, the 'submit' button should be disabled when form is opened.
     result.formValidation.resetValidationState();
     result.popup.show();
-    result.nameInput.focus();
   }
 
   result.popup.onHiding = () => {
@@ -122,40 +115,53 @@ function createEditProfilePopup(popupEl) {
   return result;
 }
 
+function createEditProfilePopup(popupEl) {
+  const result = { popupEl };
+
+  result.popupWithForm = createPopupWithForm(popupEl);
+  result.nameInput = result.popupWithForm.formEl.querySelector('.form__input_type_name');
+  result.detailsInput = result.popupWithForm.formEl.querySelector('.form__input_type_details');
+
+  result.popupWithForm.onSubmit = () => {
+    result.onSubmit?.({
+      values: {
+        name: result.nameInput.value,
+        details: result.detailsInput.value,
+      }
+    });
+  };
+
+  result.show = ({ name, details }) => {
+    result.nameInput.value = name;
+    result.detailsInput.value = details;
+    result.popupWithForm.show();
+    result.nameInput.focus();
+  }
+
+  return result;
+}
+
 function createAddPlacePopup(popupEl) {
   const result = { popupEl };
 
-  result.formEl = result.popupEl.querySelector('.form');
-  result.nameInput = result.formEl.querySelector('.form__input_type_name');
-  result.linkInput = result.formEl.querySelector('.form__input_type_link');
+  result.popupWithForm = createPopupWithForm(popupEl);
+  result.nameInput = result.popupWithForm.formEl.querySelector('.form__input_type_name');
+  result.linkInput = result.popupWithForm.formEl.querySelector('.form__input_type_link');
 
-  result.popup = createPopup(popupEl);
-  result.formValidation = createFormValidation({ ...validationOptions, formEl: result.formEl });
-
-  result.formEl.addEventListener('submit', (evt) => {
-    evt.preventDefault();
+  result.popupWithForm.onSubmit = () => {
     result.onSubmit?.({
       values: {
         name: result.nameInput.value,
         link: result.linkInput.value,
       }
     });
-    result.popup.hide();
-  });
+  };
 
   result.show = () => {
     result.nameInput.value = '';
     result.linkInput.value = '';
-    // Figma project requires empty validation messages when popup is opened.
-    // And, the 'submit' button should be disabled when form is opened.
-    result.formValidation.resetValidationState();
-    result.popup.show();
+    result.popupWithForm.show();
     result.nameInput.focus();
-  }
-
-  result.popup.onHiding = () => {
-    result.formValidation.resetValidationState();
-    result.formEl.reset();
   }
 
   return result;
