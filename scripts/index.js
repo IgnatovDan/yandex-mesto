@@ -233,13 +233,13 @@ function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate 
     result.placesListItemEl = placesListItemTemplate.cloneNode(true);
 
     const placeEl = placeTemplate.cloneNode(true);
-    result.placesListItemEl.append(placeEl);
-
     const place = createPlace(placeEl);
     place.onLikePlace = (evt) => evt.place.updatePlaceValues({ ...evt.values, like: !evt.values.like });
     place.onDeletePlace = () => result.placesListItemEl.remove();
     place.onShowDetails = (evt) => result.onShowPlaceDetails?.({ values: { ...evt.values } });
     place.updatePlaceValues({ name, link });
+
+    result.placesListItemEl.append(placeEl);
 
     return result;
   };
