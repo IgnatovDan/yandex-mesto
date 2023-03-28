@@ -208,8 +208,8 @@ function createPlace(placeEl) {
   result.deleteEl = result.placeEl.querySelector('.place__delete');
 
   result.imageEl.addEventListener('click', () => result.onImageClick?.({ values: result.getPlaceValues() }));
-  result.likeEl.addEventListener('click', () => result.onLikePlace?.({ place: result, values: result.getPlaceValues() }));
-  result.deleteEl.addEventListener('click', () => result.onDeletePlace?.());
+  result.likeEl.addEventListener('click', () => result.onLikeClick?.({ place: result, values: result.getPlaceValues() }));
+  result.deleteEl.addEventListener('click', () => result.onDeleteClick?.());
 
   result.updatePlaceValues = ({ name, link, like }) => {
     result.imageEl.src = link;
@@ -229,41 +229,49 @@ function createPlace(placeEl) {
   return result;
 }
 
+function createPlacesListItem(placesListItemEl, { placeTemplate }) {
+  const result = {};
+  result.placesListItemEl = placesListItemEl;
+
+  const placeEl = placeTemplate.cloneNode(true);
+  result.place = createPlace(placeEl);
+
+  result.place.onLikeClick = (evt) => result.onPlaceLikeClick?.(evt);
+  result.place.onDeleteClick = () => result.onPlaceDeleteClick?.();
+  result.place.onImageClick = (evt) => result.onPlaceImageClick?.({ values: { ...evt.values } });
+
+  result.updatePlaceValues = ({ name, link, like }) => result.place.updatePlaceValues({ name, link, like });
+
+  result.placesListItemEl.append(result.place.placeEl);
+
+  return result;
+}
+
 function createPlacesList(placesListEl, { placesListItemTemplate, placeTemplate }) {
-  const result = { placesListEl };
+  const result = { placesListEl, placesListItemTemplate, placeTemplate };
 
-  result.createPlacesListItemFromTemplateEl = ({ name, link }) => {
-    const result = {};
-    result.placesListItemEl = placesListItemTemplate.cloneNode(true);
+  result.renderNewPlaceItem = ({ name, link }, { usePrepend } = {}) => {
+    const placesListItemEl = result.placesListItemTemplate.cloneNode(true);
 
-    const placeEl = placeTemplate.cloneNode(true);
-    const place = createPlace(placeEl);
-    place.onLikePlace = (evt) => evt.place.updatePlaceValues({ ...evt.values, like: !evt.values.like });
-    place.onDeletePlace = () => result.placesListItemEl.remove();
-    place.onImageClick = (evt) => result.onImageClick?.({ values: { ...evt.values } });
-    place.updatePlaceValues({ name, link });
+    const placesListItem = createPlacesListItem(placesListItemEl, { placeTemplate: result.placeTemplate });
 
-    result.placesListItemEl.append(placeEl);
+    placesListItem.onPlaceDeleteClick = () => placesListItem.placesListItemEl.remove();
+    placesListItem.onPlaceImageClick = (evt) => result.onPlaceImageClick?.({ values: { ...evt.values } });
+    placesListItem.onPlaceLikeClick = (evt) => placesListItem.updatePlaceValues({ ...evt.values, like: !evt.values.like });
 
-    return result;
-  };
+    placesListItem.updatePlaceValues({ name, link });
 
-  result.createItemFromTemplate = ({ name, link }) => {
-    const placesListItem = result.createPlacesListItemFromTemplateEl({ name, link });
-    placesListItem.onImageClick = (evt) => result.onPlaceImageClick?.({ values: { ...evt.values } });
-    return placesListItem;
+    result.placesListEl[usePrepend ? 'prepend' : 'append'](placesListItem.placesListItemEl);
   };
 
   result.renderPlaces = (places) => {
     places.forEach(({ name, link }) => {
-      const placesListItem = result.createItemFromTemplate({ name, link });
-      result.placesListEl.append(placesListItem.placesListItemEl);
+      result.renderNewPlaceItem({ name, link });
     });
   };
 
   result.addPlace = ({ name, link }) => {
-    const placesListItem = result.createItemFromTemplate({ name, link });
-    result.placesListEl.prepend(placesListItem.placesListItemEl);
+    result.renderNewPlaceItem({ name, link }, { usePrepend: true });
   };
 
   return result;
