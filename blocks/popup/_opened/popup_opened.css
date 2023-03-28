@@ -2,6 +2,7 @@
   /* display: none; */
   opacity: 1;
   visibility: visible;
+  pointer-events: all;
   /*
   - https://github.com/w3c/csswg-drafts/issues/6429#issuecomment-1332439874 - Why is display listed as not animatable instead of animation type: discrete?
   - https://greywyvern.com/?post=337 - transitions using visibility and delay

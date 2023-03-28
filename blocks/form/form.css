@@ -1,5 +1,6 @@
 .form {
-  min-width: 282px;
+  /* Fixed width in figma layout */
+  width: 282px;
 
   display: flex;
   flex-direction: column;
@@ -14,7 +15,8 @@
 
 @media screen and (min-width: 1024px) {
   .form {
-    min-width: 430px;
+    /* Fixed width in figma layout */
+    width: 430px;
     padding: 34px 36px 37px;
   }
 }

@@ -2,18 +2,21 @@
 
 https://ignatovdan.github.io/yandex-mesto/ - you can take a look at the project right now!
 
-There are several places with photos and descriptions and photo/name/details of the page owner.
-Also, there are edit forms to change these values.
+There are several places with photos and descriptions, photo/name/details of the page owner, popups to change values and add new places.
 
 The page is optimized for viewing on desktop (>1024) and on mobile (<1024) devices: layout changes depending on the width of your device/browser.
 
-Figma design file: https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1&t=62dRw5GoB0v0sPEO-0
-
 ---
-### Previous development steps:
-  - Step "-1" (root page layout)
+### Development stages:
+  - Stage "1" (root page layout)
     - Github branch: https://github.com/IgnatovDan/yandex-mesto/tree/p4
-    - Figma design file: https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1
+    - Figma design file: https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4
+  - Stage "2" (view/edit cards, smooth popups)
+    - Github branch: https://github.com/IgnatovDan/yandex-mesto/tree/p5
+    - Figma design file: https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5
+  - Stage "3" (validation)
+    - Github branch: https://github.com/IgnatovDan/yandex-mesto/tree/p6
+    - Figma design file: https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6
 ---
 ### Used technologies
 HTML, CSS-flex, CSS-grid, JS, BEM, Responsive design, Figma

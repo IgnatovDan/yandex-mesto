@@ -1,5 +1,5 @@
 .popup {
-  --fade-in-out-time: 500ms;
+  --fade-in-out-time: 200ms;
 
   position: fixed;
   /* 0? 9999 ? */
@@ -31,4 +31,5 @@
   transition: opacity var(--fade-in-out-time), visibility 0s linear var(--fade-in-out-time);
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 }

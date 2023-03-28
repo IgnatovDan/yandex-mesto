@@ -2,7 +2,9 @@
   border: none;
   box-sizing: border-box;
   height: 32px;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(0, 0, 0, .2);
   padding: 0 0 4px;
 
   /* padding-bottom: 5px;
@@ -18,10 +20,35 @@
   transition: border-bottom-color 0.3s ease-in-out;
 }
 
+
+.form__input::placeholder {
+  color: #C4C4C4;
+}
+
 .form__input:focus {
   outline: none;
-  border-bottom-color: rgba(0, 0, 0, 1);
 }
+
+/*
+':invalid' is not suitable:
+1. Figma project requires hidden validation messages when a form is opened
+For this requirement, the 'form__input:invalid' approach is too complex (indeed, input is 'invalid' but it should be shown as 'valid').
+2. If value is changed from js code the 'form__input:invalid' is updated for 'valueMissing' and it is not updated for 'tooShort'
+So, I cannot rely on '.form__input:invalid' validation (behavior is inconsistent for js and end-user modifications)
+
+.form__input:invalid {
+  border-bottom-color: rgba(255, 0, 0);
+}
+
+.form__input_initial-state:invalid {
+  border-bottom-color: rgba(0, 0, 0, .2);
+}
+
+.form__input_initial-state:invalid:focus {
+  outline: none;
+  border-bottom-color: rgba(0, 0, 0);
+}
+*/
 
 @media screen and (min-width: 1024px) {
   .form__input {

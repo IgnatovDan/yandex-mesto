@@ -1,0 +1,5 @@
+.form__input-with-message {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

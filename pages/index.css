@@ -36,17 +36,15 @@
 @import url(../blocks/popup/__content/popup__content.css);
 @import url(../blocks/popup/__close/popup__close.css);
 
-@import url(../blocks/profile-form/profile-form.css);
-@import url(../blocks/profile-form/__caption/profile-form__caption.css);
-@import url(../blocks/profile-form/__input/profile-form__input.css);
-@import url(../blocks/profile-form/__field-set/profile-form__field-set.css);
-@import url(../blocks/profile-form/__save/profile-form__save.css);
-
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__caption/form__caption.css);
 @import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_invalid/form__input_invalid.css);
+@import url(../blocks/form/__input-with-message/form__input-with-message.css);
+@import url(../blocks/form/__input-message/form__input-message.css);
 @import url(../blocks/form/__field-set/form__field-set.css);
 @import url(../blocks/form/__save/form__save.css);
+@import url(../blocks/form/__save/_disabled/form__save_disabled.css);
 
 @import url(../blocks/view-place/view-place.css);
 @import url(../blocks/view-place/__caption/view-place__caption.css);
