@@ -1,0 +1,20 @@
+.logo {
+  width: 143px;
+  height: 34px;
+
+  margin-top: 45px;
+  margin-bottom: 40px;
+
+  background-image: url(../../images/logo_white.svg);
+}
+
+@media screen and (max-width: 320px) {
+  .logo {
+    margin-left: 27px;
+    margin-top: 28px;
+    margin-bottom: 32px;
+    width: 104px;
+    height: 25px;
+    background-size: contain;
+  }
+}

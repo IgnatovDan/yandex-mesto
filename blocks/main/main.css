@@ -1,0 +1,13 @@
+.main {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: minmax(min-content, max-content) repeat(2, 1fr);
+
+  grid-template-areas: 
+  "profile profile profile"
+  "cards cards cards"
+  "cards cards cards"
+  ;
+}
