@@ -88,6 +88,7 @@ const toggleButtonState = (inputList, buttonEl) => {
     buttonEl.classList.add('popup__submit_disabled');
 - Вместо использования фиксированной строки нужно использовать allClasses.submitButtonDisabled из аргумента функции enableValidation
     buttonEl.disabled = true;
+
 - Отлично: использовано свойство disabled
   } else {
     // ? в противном случае сделает кнопку активной
