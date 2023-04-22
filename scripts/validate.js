@@ -127,7 +127,7 @@ const setEventListeners = formEl => {
 
 const enableValidation = (allClasses = {
   form: '.popup__form',
-- Можно лучше: все значения по умолчанию не требуются, они дублируют явно передаваемые значения
+- Надо исправить: все значения по умолчанию надо удалить, они дублируют явно передаваемые значения
   input: '.popup__input',
   submitButton: '.popup__submit',
   submitButtonDisabled: '.popup__submit_disabled',
