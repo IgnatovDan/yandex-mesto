@@ -109,6 +109,7 @@ const addCards = (name, link) => {
   cardTemplate.querySelector('.card__img').addEventListener('click', () => {
 
     photoPopup.querySelector('.photo-popup__image').src = link;
+- Код не оформлен: не согласованы отступы по строкам кода функции
 - querySelector возвращает один и тот же элемент на каждом вызове
 Для этой ситуации нужно объявить const переменные, выполнить поиск один раз и сохранить значения начале файла.
 Самостоятельно проверьте аналогичный поиск элементов в остальном коде и добавьте const переменные.
