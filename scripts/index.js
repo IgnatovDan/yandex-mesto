@@ -171,6 +171,7 @@ profileEditButton.addEventListener('click', () => {
 - Надо исправить: по заданию нужно переписать значения в элементы редактирования при показе popup
 В работе нет кода, который это делает
 - Надо исправить: при показе popup нужно безусловно удалить тексты ошибок и настроить состояние кнопки submit по требованиям задания
+Сейчас сообщения показаны и кнопка отключена при показе формы после удаления значений и закрытия формы 
   togglePopupClass(popupTypeProfileEdit);
 });
 popupCloseButton.addEventListener('click', () => togglePopupClass(popupTypeProfileEdit));
@@ -187,7 +188,6 @@ popupFormTypeUserInfo.addEventListener('submit', formSubmitHandler);
 
 // * вешаем обработчик на кнопку с плюсиком в блоке profile. по клику на кнопку открывается второй попап
 profileAddButton.addEventListener('click', () => togglePopupClass(popupTypeAddNewCard));
-- Надо исправить: при показе popup нужно безусловно удалить тексты ошибок и настроить состояние кнопки submit по требованиям задания
 
 // * вешаем обработчик на крестик во втором попапе
 anotherCloseButton.addEventListener('click', () => togglePopupClass(popupTypeAddNewCard));
