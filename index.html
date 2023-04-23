@@ -15,15 +15,21 @@
     </header>
 
     <main class="main">
+- Можно лучше: согласовать расположение с макетом 320 -- https://i.imgur.com/0jjxg6J.png
 
       <section class="profile">
           <img src="./images/cousteau.jpg" alt="Аватар пользователя" class="profile__avatar">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
+- Можно лучше: согласовать шрифт с макетом 1280 "Weight 500" -- https://i.imgur.com/vA9si0w.png
           <p class="profile__regalia">Исследователь океанa</p>
           <button class="profile__edit-button">
+- Надо исправить: каждой кнопке на странице необходимо задать type. По умолчанию - это submit, однако submit нужен для отправки формы, а в этом сценарии нужно другое поведение.
+Подробнее об атрибутах для кнопок http://htmlbook.ru/html/button
             <img src="./images/pencil.svg" alt="карандаш" class="profile__pencil">
           </button>
         <button class="profile__add-button">
+- Надо исправить: код не оформлен, не согласованы отступы
+- Надо исправить: каждой кнопке на странице необходимо задать type. По умолчанию - это submit, однако submit нужен для отправки формы, а в этом сценарии нужно другое поведение.
           <img src="./images/plus.svg" alt="плюс" class="profile__plus">
         </button>
       </section>
@@ -37,16 +43,33 @@
     </footer>
 
     <div class="popup the-popup popup_type_profile-edit">
+- Надо исправить: согласовать расположение с заданием "позиционируйте попап фиксированно по центру экрана".
+Сейчас popup выходит за границы браузера: https://i.imgur.com/LZEYZXY.png
+- Надо исправить: Заранее задать размеры и зарезервировать место для отображения текстов ошибок, отступы не должны меняться
+Сейчас элементы выходят за границы popup: https://i.imgur.com/ECN1Fbd.png
+- Можно лучше: согласовать расположение с макетом 320: https://i.imgur.com/dRyLP6V.png
 
       <div class="popup__container">
+- Надо исправить: `height: 330px;` по дочерним элементам этого тега видно, что это контентный элемент, для которых высота определяется размерами его дочерних элементов и не должна быть фиксированной (или иметь "максимальное ограничение").
+Высоту этого блока должен считать браузер по контенту (высотам дочерних элементов).
+Соответствие с макетом нужно делать через настройку padding у этого элемента и стили у дочерних элементов.
         <button class="popup__close-button" type="button"><img src="./images/close-icon.svg" alt="закрыть попап" class="popup__close-img"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
+- Код не оформлен: не согласованы отступы
           <form class="popup__form popup__form_type_user-info" name="user-info" novalidate>
             <fieldset class="popup__fieldset popup__fieldset_type_user-info">
+- Можно лучше: заменить тег fieldset на div.
+fieldset используется в сложных формах для создания нескольких групп из элементов ввода, а на этой странице есть только одна группа и fieldset не требуется. Подробнее в разделе курса "Что такое форма?" и в https://doka.guide/html/fieldset/
               <input type="text" class="popup__input popup__input_type_name" placeholder="Жак-Ив Кусто" name="user-name" required minlength="2" maxlength="40" id="user-name">
+- Можно лучше: перенастроить размеры для полного показа рамки фокуса.
+Сейчас у рамки фокуса для элемента ввода не отображается нижняя часть -- https://i.imgur.com/btnjFAK.png
               <span class="popup__input-error" id="user-name-error"></span>
+- Нужно заранее настроить высоту элемента что бы не было смещений элементов при показе/скрытии текста ошибки на две строки
+Для текстов ошибок на три и более строк размер окна должен увеличиваться
               <input type="text" class="popup__input popup__input_type_regalia" placeholder="Исследователь океана" name="user-regalia" required minlength="2" maxlength="200" id="user-regalia">
               <span class="popup__input-error" id="user-regalia-error"></span>
+- Нужно заранее настроить высоту элемента что бы не было смещений элементов при показе/скрытии текста ошибки на две строки
+Для текстов ошибок на три и более строк размер окна должен увеличиваться
             </fieldset>
             <button type="submit" class="popup__submit" value="Сохранить" name="submit" disabled>Сохранить</button>
           </form>
@@ -57,23 +80,45 @@
     <div class="popup the-popup popup_type_add-new-card">
 
       <div class="popup__container">
+- Расположение элементов не совпадает с макетом 320: https://i.imgur.com/syI6Ilf.png
         <button class="popup__close-button another-close-button" type="button"><img src="./images/close-icon.svg" alt="закрыть попап" class="popup__close-img"></button>
           <h3 class="popup__title">Новое место</h3>
+- Код не оформлен: не согласованы отступы
           <form class="popup__form popup__form_type_add-card" name="card-info" novalidate>
             <fieldset class="popup__fieldset popup__fieldset_type_card-info">
+- Можно лучше: заменить тег fieldset на div.
               <input type="text" class="popup__input popup__input_type_card-title" placeholder="Название картинки" name="card-title" required maxlength="30" id="card-title">
+- Надо исправить: не настроена минимальная длина, по заданию "в поле «Название» должно быть от 2 до 30 символов"
               <span class="popup__input-error" id="card-title-error"></span>
+- Нужно заранее настроить высоту элемента что бы не было смещений элементов при показе/скрытии текста ошибки на две строки
+Для текстов ошибок на три и более строк размер окна должен увеличиваться
               <input type="url" class="popup__input popup__input_type_card-link" placeholder="Ссылка на картинку" name="card-link" required id="card-link">
               <span class="popup__input-error" id="card-link-error"></span>
+- Нужно заранее настроить высоту элемента что бы не было смещений элементов при показе/скрытии текста ошибки на две строки
+Для текстов ошибок на три и более строк размер окна должен увеличиваться
             </fieldset>
             <button type="submit" class="popup__submit" value="Сохранить" name="submit" disabled>Сохранить</button>
+- Макет задает текст "Создать"
           </form>
       </div>
 
     </div>
     <div class="photo-popup the-popup">
+- Надо исправить: Для всех popup нужно использовать один БЭМ блок `popup` со всеми дочерними БЭМ элементами и 
+настройками для отображения/скрытия. Для обращения к конкретным popup из js кода используйте модификаторы со
+значением, например `popup_type_show-image`
+- Надо исправить: По заданию нужно сделать плавное открытие и плавное закрытие для popup: "Пусть проявляются из прозрачности и уходят в неё при закрытии"
+В коде не хватает **плавного закрытия** для этого popup
+В описании задания есть ссылка на вариант реализации (https://stackoverflow.com/questions/3331353/). И еще хорошие пояснения этого сценария есть тут: https://greywyvern.com/?post=337
+(в классе `.popup_opened` должно быть только управление видимостью, а в классе `popup` используйте свойство transition: для плавности нужно сразу задать время на переключение значения visibility и время на переключение opacity, подробнее в разделе курса "Плавность переходов" и в https://doka.guide/css/transition/)
+
       <figure class="photo-popup__container">
+- Для повторного использования структуры popup нужно использовать класс `popup__container` на этом теге: вместо нового класса используйте `popup__container` с модификатором, например `popup__container popup__container_type_photo`
         <button class="photo-popup__close-button"></button>
+- Для повторного использования структуры popup нужно использовать класс `popup__close-button` на этом теге. При необходимости используйте модификатор для настройки стилей.
+- Надо исправить: каждой кнопке на странице необходимо задать type. По умолчанию - это submit, однако submit нужен для отправки формы, а в этом сценарии нужно другое поведение.
+- Расположение кнопки не совпадает с макетом 320: https://i.imgur.com/3Bp4VAe.png
+- Размеры кнопки не совпадают с макетом 1280: https://i.imgur.com/JROrijp.png
         <img src="./images/london.jpg" alt="" class="photo-popup__image">
         <figcaption class="photo-popup__caption">London is the capital of Great Britain</figcaption>
       </figure>
@@ -83,15 +128,19 @@
       <div class="card">
         <img src="./images/bali.jpg" alt="Бали" class="card__img">
         <button class="card__delete-card"></button>
+- Надо исправить: каждой кнопке на странице необходимо задать type. По умолчанию - это submit, однако submit нужен для отправки формы, а в этом сценарии нужно другое поведение.
         <div class="card__name">
           <h2 class="card__title">Бали</h2>
+- Можно лучше: согласовать шрифт с макетом "Weight 900" -- https://i.imgur.com/Mhi6c9D.png
           <button class="card__like-button"></button>
+- Надо исправить: каждой кнопке на странице необходимо задать type. По умолчанию - это submit, однако submit нужен для отправки формы, а в этом сценарии нужно другое поведение.
         </div>
       </div>
     </template>
 
   </div>
 <script src="./scripts/index.js"></script>
+- Код не оформлен: не согласованы отступы. Проверьте оформление кода во всем файле.
 <script src="./scripts/validate.js"></script>
 </body>
 </html>
