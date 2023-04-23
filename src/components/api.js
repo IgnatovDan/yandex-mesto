@@ -1,5 +1,8 @@
 class Api {
   constructor({ address, token, groupId }) {
+    // review: сделано лишнее дробление url на части address и groupId
+    //    Они являются внутренними деталями реализации внешнего кода и увеличивают зависмость этого класса от внешнего кода.
+    //    Нужно передавать готовую url серверного сервиса.
     this._token = token;
     this._groupId = groupId;
     this._address = address;
@@ -11,7 +14,10 @@ class Api {
         authorization: this._token
       }
     })
+      // review: не обработан `res.ok` для всех запросов в этом файле
+      //    для (!res.ok) нужно вернуть Promise.reject(`Ошибка: ${res.status}`)
       .then(res => res.json())
+      // review: обработку ошибки через catch нужно расположить снаружи этой функции для визуального отображения ошибки
       .catch(err => console.log(`Ошибка: ${err}`))
   }
 
@@ -28,6 +34,7 @@ class Api {
       })
     })
       .then(res => res.json())
+      // review: обработку ошибки нужно расположить снаружи этой функции для визуального отображения ошибки
       .catch(err => console.log(`Ошибка: ${err}`))
   }
 

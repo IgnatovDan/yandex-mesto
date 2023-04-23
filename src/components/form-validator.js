@@ -1,4 +1,7 @@
 class FormValidator {
+  // review: название аргумента popupSelector не соответствует названию класса FormValidator
+  //    а сама форма для валидации может быть расположена не только в popup
+  //    нужно изменить название аргумента на formSelector
   constructor(config, popupSelector) {
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
@@ -61,10 +64,17 @@ class FormValidator {
   }
 
   enableValidation() {
+    // review: на каждом вызове метода enableValidation (сейчас это каждое открытие popup) 
+    //    происходит добавление еще одного обработчика на событие
+    //    нужно использовать другие методы, гарантирующие один обработчик для события
+    //    например добавление обработчика в конструкторе
     this._element.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
 
+    // review: на каждом вызове метода происходит добавление новых обработчиков событий внутри метода _setEventListeners
+    //    нужно использовать другие методы, гарантирующие один обработчик для события
+    //    например добавление обработчиков в конструкторе
     this._setEventListeners();
   }
 }

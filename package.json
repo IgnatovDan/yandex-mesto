@@ -5,6 +5,7 @@
   "description": "Yandex.Praktikum canonical projects",
   "scripts": {
     "hint": "htmlhint src/index.html",
+    "review:": "в скрипте 'build' использована команда rm, которая не доступна на OS Windows, вместо нее можно использовать другой способ удаления файлов, например CleanWebpackPlugin описанный в разделе 'Сборка проекта. Webpack.'",
     "build": "rm -rf dist && webpack",
     "dev": "webpack-dev-server --open --watch"
   },

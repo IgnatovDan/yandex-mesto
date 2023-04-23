@@ -1,4 +1,5 @@
-const path = require('path');
+// review: можно лучше: скопировать настройки для этого файла из раздела "Сборка проекта. Webpack."
+//    сейчас в настройках используются устаревшие элементы
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
