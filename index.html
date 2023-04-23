@@ -69,6 +69,7 @@ fieldset используется в сложных формах для созд
               <input type="text" class="popup__input popup__input_type_regalia" placeholder="Исследователь океана" name="user-regalia" required minlength="2" maxlength="200" id="user-regalia">
               <span class="popup__input-error" id="user-regalia-error"></span>
 - Нужно заранее настроить высоту элемента что бы не было смещений элементов при показе/скрытии текста ошибки на две строки
+Для текстов ошибок на три и более строк размер окна должен увеличиваться
             </fieldset>
             <button type="submit" class="popup__submit" value="Сохранить" name="submit" disabled>Сохранить</button>
           </form>
@@ -82,6 +83,7 @@ fieldset используется в сложных формах для созд
 - Расположение элементов не совпадает с макетом 320: https://i.imgur.com/syI6Ilf.png
         <button class="popup__close-button another-close-button" type="button"><img src="./images/close-icon.svg" alt="закрыть попап" class="popup__close-img"></button>
           <h3 class="popup__title">Новое место</h3>
+- Код не оформлен: не согласованы отступы
           <form class="popup__form popup__form_type_add-card" name="card-info" novalidate>
             <fieldset class="popup__fieldset popup__fieldset_type_card-info">
 - Можно лучше: заменить тег fieldset на div.
@@ -89,9 +91,11 @@ fieldset используется в сложных формах для созд
 - Надо исправить: не настроена минимальная длина, по заданию "в поле «Название» должно быть от 2 до 30 символов"
               <span class="popup__input-error" id="card-title-error"></span>
 - Нужно заранее настроить высоту элемента что бы не было смещений элементов при показе/скрытии текста ошибки на две строки
+Для текстов ошибок на три и более строк размер окна должен увеличиваться
               <input type="url" class="popup__input popup__input_type_card-link" placeholder="Ссылка на картинку" name="card-link" required id="card-link">
               <span class="popup__input-error" id="card-link-error"></span>
 - Нужно заранее настроить высоту элемента что бы не было смещений элементов при показе/скрытии текста ошибки на две строки
+Для текстов ошибок на три и более строк размер окна должен увеличиваться
             </fieldset>
             <button type="submit" class="popup__submit" value="Сохранить" name="submit" disabled>Сохранить</button>
 - Макет задает текст "Создать"
@@ -127,7 +131,7 @@ fieldset используется в сложных формах для созд
 - Надо исправить: каждой кнопке на странице необходимо задать type. По умолчанию - это submit, однако submit нужен для отправки формы, а в этом сценарии нужно другое поведение.
         <div class="card__name">
           <h2 class="card__title">Бали</h2>
-- Можно лучше: согласовать шрифт с макетом "Weight 900"
+- Можно лучше: согласовать шрифт с макетом "Weight 900" -- https://i.imgur.com/Mhi6c9D.png
           <button class="card__like-button"></button>
 - Надо исправить: каждой кнопке на странице необходимо задать type. По умолчанию - это submit, однако submit нужен для отправки формы, а в этом сценарии нужно другое поведение.
         </div>
